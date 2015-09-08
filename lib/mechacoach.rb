@@ -7,6 +7,11 @@ class Mechacoach
     @notifier = setup_notifier
   end
 
+  def notify(method = :be_fearsome)
+    notification = self.send(method)
+    notifier.ping(notification)
+  end
+
   def be_fearsome
     'Fear me! I am Mechacoach!'
   end

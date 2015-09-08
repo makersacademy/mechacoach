@@ -15,6 +15,11 @@ describe Mechacoach do
     it 'sets up Slack integration with a username' do
       expect(subject.notifier.default_payload[:username]).to eq 'mechacoach'
     end
+
+    it 'makes Slack notifications' do
+      allow_any_instance_of(Slack::Notifier).to receive(:ping).and_return(true)
+      expect(subject.notify(:be_fearsome)).to be true
+    end
   end
 
   context 'being fearsome' do

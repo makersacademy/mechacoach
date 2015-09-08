@@ -3,6 +3,7 @@ GEM
   specs:
     diff-lcs (1.2.5)
     dotenv (2.0.2)
+    rake (10.4.2)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -23,6 +24,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  rake
   rspec
   slack-notifier
 

@@ -7,6 +7,10 @@ class Mechacoach
     @notifier = setup_notifier
   end
 
+  def be_fearsome
+    'Fear me! I am Mechacoach!'
+  end
+
   private
 
   def setup_notifier

@@ -13,8 +13,11 @@ Mechacoach exists to reduce the time coaches spend doing all the little admin th
 
 ### Getting Started
 
-Fill a `.env` file with delicious credentials from LastPass, I guess.
+- Fill a `.env` file with delicious credentials from LastPass, I guess.
+- Mechacoach works via `rake`. Check out the Rakefile for deets.
 
 ### Extending Mechacoach
 
 Do it, man. Just follow [this stuff](contributing.md) when doing so.
+
+If you wanna write new Slack messages, you can use the formatting provided in the [slack-notifier readme](https://github.com/stevenosloan/slack-notifier).

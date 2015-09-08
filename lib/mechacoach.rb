@@ -9,7 +9,7 @@ class Mechacoach
 
   def notify(method = :be_fearsome)
     notification = self.send(method)
-    notifier.ping(notification)
+    notifier.ping(notification, icon_emoji: ':tophat:')
   end
 
   def be_fearsome

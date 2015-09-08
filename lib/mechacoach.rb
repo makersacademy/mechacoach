@@ -14,7 +14,7 @@ class Mechacoach
   private
 
   def setup_notifier
-    Slack::Notifier.new("WEBHOOK_URL", 
+    Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'], 
       {
         channel:  '#coaches',
         username: 'mechacoach'

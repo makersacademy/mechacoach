@@ -33,3 +33,6 @@ build/
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+
+# Take a peek in LastPass for .env stuff (using Dotenv)
+.env

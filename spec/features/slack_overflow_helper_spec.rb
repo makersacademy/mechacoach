@@ -2,7 +2,16 @@ require 'mechacoach'
 
 describe 'posting to Slack Overflow' do
   let(:coach) { Mechacoach.new }
+  let(:response) do
+    {
+      body: slack_overflow_formatting_info
+    }
+  end
   context 'when a new Slack Overflow issue is created' do
+    before do
+      allow_any_instance_of(Octokit::Client).to receive(:add_comment).and_return(response)
+    end
+
     it 'posts formatting information for that question' do
       # hit the webhook
       coach = Mechacoach.new

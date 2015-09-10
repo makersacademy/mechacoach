@@ -1,5 +1,6 @@
 require 'sinatra'
+require './lib/mechacoach'
 
 get '/' do
-  "Hello World!"
+  
 end

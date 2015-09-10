@@ -7,3 +7,4 @@ gem 'slack-notifier'
 # Wrap the GitHub API
 gem "octokit", "~> 4.0"
 gem 'dotenv'
+gem 'sinatra'

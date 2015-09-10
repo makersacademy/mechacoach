@@ -6,7 +6,7 @@ describe 'posting to Slack Overflow' do
     it 'posts formatting information for that question' do
       # hit the webhook
       coach = Mechacoach.new
-      expect(coach.slack_overflow_issue(92)[:body]).to eq slack_overflow_formatting_info
+      expect(coach.slack_overflow_issue(95)[:body]).to eq slack_overflow_formatting_info
     end
   end
 
@@ -22,5 +22,9 @@ describe 'posting to Slack Overflow' do
 
       That will help a casual browser to quickly point you in the right direction.
     eos
+  end
+
+  def test_issue
+    95
   end
 end

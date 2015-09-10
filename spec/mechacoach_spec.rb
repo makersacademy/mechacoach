@@ -39,7 +39,7 @@ describe Mechacoach do
     end
 
     it 'replies to a specific Slack Overflow issue' do
-      expect{ subject.slack_overflow_issue(92) }.not_to raise_error
+      expect{ subject.slack_overflow_issue(test_slack_overflow_issue_number) }.not_to raise_error
     end
   end
 
@@ -54,5 +54,11 @@ describe Mechacoach do
     it 'makes fearsome comments' do
       expect(subject.be_fearsome).to eq 'Fear me! I am Mechacoach!'
     end
+  end
+
+  private
+
+  def test_slack_overflow_issue_number
+    95
   end
 end

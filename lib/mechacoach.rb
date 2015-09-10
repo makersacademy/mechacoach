@@ -47,13 +47,13 @@ class Mechacoach
 
   def slack_overflow_formatting_info
     <<-eos
-      A word to the wise - format overflow questions like this:
+A word to the wise - format overflow questions like this:
 
-      1. What you're trying to do
-      2. The code to do it in a [GitHub-flavoured Markdown](https://help.github.com/articles/github-flavored-markdown/) code block
-      3. The error you're getting
+1. What you're trying to do
+2. The code to do it in a [GitHub-flavoured Markdown](https://help.github.com/articles/github-flavored-markdown/) code block
+3. The error you're getting
 
-      That will help a casual browser to quickly point you in the right direction.
+That will help a casual browser to quickly point you in the right direction.
     eos
   end
 end

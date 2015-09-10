@@ -8,6 +8,7 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/new-slack-overflow-issue' do
+    p params
     issue_number = ParseGithub.with(params)
     handler = Mechacoach.new
     handler.slack_overflow_issue(issue_number)

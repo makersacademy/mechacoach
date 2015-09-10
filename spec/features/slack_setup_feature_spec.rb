@@ -1,7 +1,12 @@
 require 'mechacoach'
 
 describe 'setting up Slack integration' do
-  let(:coach) { Mechacoach.new }
+  let(:github_client) { double :github_client }
+  let(:github_wrapper) { double :github_klass, { new: github_client } }
+
+  let(:coach) do
+    Mechacoach.new(github_wrapper)
+  end
 
   it 'notifies Slack' do
     expect(coach.notifier).to be_a Slack::Notifier

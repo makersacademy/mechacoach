@@ -1,10 +1,16 @@
-require 'sinatra'
+require 'sinatra/base'
+require './lib/parse_github'
 require './lib/mechacoach'
 
-get '/' do
-  "wotcher."
-end
+class MechacoachServer < Sinatra::Base
+  get '/' do
+    "wotcher."
+  end
 
-post '/new-slack-overflow-issue' do
-  "#{params}"
+  post '/new-slack-overflow-issue' do
+    issue_number = ParseGithub.with(params)
+    handler = Mechacoach.new
+    handler.slack_overflow_issue(issue_number)
+    200
+  end
 end

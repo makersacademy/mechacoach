@@ -27,7 +27,7 @@ describe Mechacoach do
     end
   end
 
-  context 'communicating with Slack Overflow' do
+  context 'communicating with GitHub' do
     subject { Mechacoach.new }
 
     before do
@@ -38,8 +38,12 @@ describe Mechacoach do
       expect(subject.github_client).not_to be_nil
     end
 
-    it 'replies to a specific Slack Overflow issue' do
-      expect{ subject.slack_overflow_issue(test_slack_overflow_issue_number) }.not_to raise_error
+    it 'replies to a specific GitHub issue' do
+      expect { subject.slack_overflow_issue(test_slack_overflow_issue_number) }.not_to raise_error
+    end
+
+    it 'raises an error if passed malformed data' do
+      expect { subject.slack_overflow_issue(nil) }.to raise_error 'You must pass an issue number'
     end
   end
 

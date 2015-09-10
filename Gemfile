@@ -8,3 +8,5 @@ gem 'slack-notifier'
 gem "octokit", "~> 4.0"
 gem 'dotenv'
 gem 'sinatra'
+gem 'capybara'
+gem 'capybara-json'

@@ -1,2 +1,4 @@
 require './app/server'
-run Sinatra::Application
+require 'dotenv'
+Dotenv.load
+run MechacoachServer

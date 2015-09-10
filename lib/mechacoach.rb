@@ -16,6 +16,7 @@ class Mechacoach
 
   def slack_overflow_issue(issue_number)
     raise 'Authenticate with GitHub first' unless github_client
+    raise 'You must pass an issue number' unless issue_number.is_a? Fixnum
     github_client.add_comment('makersacademy/slack-overflow', issue_number, slack_overflow_formatting_info)
   end
 

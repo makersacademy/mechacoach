@@ -9,7 +9,7 @@ class Mechacoach
     @github_client = SetupGithub.with(github_klass)
   end
 
-  def notify(method = :be_fearsome)
+  def notify_slack(method = :be_fearsome)
     notification = self.send(method)
     slack_client.ping(notification, icon_emoji: ':tophat:')
   end

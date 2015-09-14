@@ -17,7 +17,7 @@ describe Mechacoach do
 
     it 'makes Slack notifications' do
       allow(slack_client).to receive(:ping).and_return(true)
-      expect(subject.notify(:be_fearsome)).to be true
+      expect(subject.notify_slack(:be_fearsome)).to be true
     end
   end
 

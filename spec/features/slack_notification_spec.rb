@@ -10,6 +10,6 @@ describe 'Making Slack notifications' do
 
   it 'makes Slack notifications' do
     allow_any_instance_of(Slack::Notifier).to receive(:ping).and_return(true)
-    expect(coach.notify(:be_fearsome)).to be true
+    expect(coach.notify_slack(:be_fearsome)).to be true
   end
 end

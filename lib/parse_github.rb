@@ -6,6 +6,6 @@ class ParseGithub
   private
 
   def self.parse_payload(payload)
-    payload[:issue][:number].to_i
+    JSON.parse(payload)["issue"]["number"]
   end
 end

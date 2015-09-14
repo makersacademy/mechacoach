@@ -19,9 +19,7 @@ describe 'posting to Slack Overflow' do
     end
 
     it 'forwards params from the webhook to a notifier' do
-      expect_any_instance_of(Mechacoach).to receive(:slack_overflow_issue) do |arg|
-        expect(arg).to be_a Fixnum
-      end
+      expect_any_instance_of(Mechacoach).to receive(:slack_overflow_issue)
       post '/new-slack-overflow-issue', example_issue_opening_payload
     end
 
@@ -58,7 +56,7 @@ That will help a casual browser to quickly point you in the right direction.
   def bad_payload
     {
       "error": true
-    }
+    }.to_json
   end
 
   def example_issue_opening_payload
@@ -215,6 +213,6 @@ That will help a casual browser to quickly point you in the right direction.
         "type": "User",
         "site_admin": false
       }
-    }
+    }.to_json
   end
 end

@@ -167,7 +167,7 @@ describe ParseGithub do
         "type": "User",
         "site_admin": false
       }
-    }
+    }.to_json
   end
 
   def test_slack_overflow_issue_number

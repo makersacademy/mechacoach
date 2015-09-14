@@ -4,38 +4,43 @@ describe Mechacoach do
   context 'communicating with Slack' do
     let(:github_client) { double :github_client }
     let(:github_wrapper) { double :github_klass, { new: github_client } }
+    let(:slack_client) { double :slack_client, { default_payload: {channel: '#coaches', username: 'mechacoach'} } }
+    let(:slack_wrapper) { double :slack_klass, { new: slack_client } }
 
     subject do
-      Mechacoach.new(github_wrapper)
+      Mechacoach.new(github_wrapper, slack_wrapper)
     end
 
     it 'notifies Slack' do
-      expect(subject.notifier).to be_a Slack::Notifier
+      expect(subject.slack_client).to eq slack_client
     end
 
     it 'sets up Slack integration with a channel' do
-      expect(subject.notifier.default_payload[:channel]).to eq '#coaches'
+      expect(subject.slack_client.default_payload[:channel]).to eq '#coaches'
     end
 
     it 'sets up Slack integration with a username' do
-      expect(subject.notifier.default_payload[:username]).to eq 'mechacoach'
+      expect(subject.slack_client.default_payload[:username]).to eq 'mechacoach'
     end
 
     it 'makes Slack notifications' do
-      allow_any_instance_of(Slack::Notifier).to receive(:ping).and_return(true)
+      allow(slack_client).to receive(:ping).and_return(true)
       expect(subject.notify(:be_fearsome)).to be true
     end
   end
 
   context 'communicating with GitHub' do
-    subject { Mechacoach.new }
+    let(:github_client) { double :github_client, { add_comment: {} } }
+    let(:github_wrapper) { double :github_klass, { new: github_client } }
+    let(:slack_client) { double :slack_client }
+    let(:slack_wrapper) { double :slack_klass, { new: slack_client } }
 
-    before do
-      allow_any_instance_of(Octokit::Client).to receive(:add_comment).and_return({})
+    subject do
+      Mechacoach.new(github_wrapper, slack_wrapper)
     end
 
     it 'authenticates with GitHub' do
-      expect(subject.github_client).not_to be_nil
+      expect(subject.github_client).to eq github_client
     end
 
     it 'replies to a specific GitHub issue' do

@@ -2,16 +2,16 @@ require 'slack-notifier'
 require 'octokit'
 
 class Mechacoach
-  attr_reader :notifier, :github_client
+  attr_reader :slack_client, :github_client
 
-  def initialize(github_klass = Octokit::Client)
-    @notifier = setup_notifier
+  def initialize(github_klass = Octokit::Client, slack_klass = Slack::Notifier)
+    @slack_client = setup_slack(slack_klass)
     @github_client = setup_github(github_klass)
   end
 
   def notify(method = :be_fearsome)
     notification = self.send(method)
-    notifier.ping(notification, icon_emoji: ':tophat:')
+    slack_client.ping(notification, icon_emoji: ':tophat:')
   end
 
   def slack_overflow_issue(issue_number)
@@ -26,17 +26,19 @@ class Mechacoach
 
   private
 
-  def setup_notifier
-    Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'], 
-      {
-        channel:  '#coaches',
-        username: 'mechacoach'
-      }
-    )
+  def setup_slack(slack_klass)
+    slack_klass.new(ENV['SLACK_WEBHOOK_URL'], slack_config_hash)
   end
 
   def setup_github(github_klass)
     github_klass.new(github_auth_hash)
+  end
+
+  def slack_config_hash
+    {
+      channel:  '#coaches',
+      username: 'mechacoach'
+    }
   end
 
   def github_auth_hash

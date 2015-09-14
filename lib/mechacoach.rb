@@ -1,7 +1,7 @@
 require 'slack-notifier'
 require 'octokit'
-require 'setup_slack'
-require 'setup_github'
+require_relative 'setup_slack'
+require_relative 'setup_github'
 
 class Mechacoach
   attr_reader :slack_client, :github_client

@@ -53,7 +53,7 @@ describe Mechacoach do
     end
 
     it 'makes fearsome comments' do
-      expect(subject.be_fearsome).to eq 'Fear me! I am Mechacoach!'
+      expect(subject.send(:be_fearsome)).to eq 'Fear me! I am Mechacoach!'
     end
   end
 

@@ -20,11 +20,11 @@ class Mechacoach
     github_client.add_comment('makersacademy/slack-overflow', issue_number, slack_overflow_formatting_info)
   end
 
+  private
+
   def be_fearsome
     'Fear me! I am Mechacoach!'
   end
-
-  private
 
   def slack_overflow_formatting_info
     <<-eos

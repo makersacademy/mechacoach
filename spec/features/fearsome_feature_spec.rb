@@ -9,6 +9,6 @@ describe 'being fearsome' do
   end
 
   it 'Mechacoach lets us know how terrifying it is' do
-    expect(coach.be_fearsome).to eq 'Fear me! I am Mechacoach!'
+    expect(coach.send(:be_fearsome)).to eq 'Fear me! I am Mechacoach!'
   end
 end

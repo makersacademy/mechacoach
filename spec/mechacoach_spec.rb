@@ -4,7 +4,7 @@ describe Mechacoach do
   context 'communicating with Slack' do
     let(:github_client) { double :github_client }
     let(:github_wrapper) { double :github_klass, { new: github_client } }
-    let(:slack_client) { double :slack_client, { default_payload: {channel: '#coaches', username: 'mechacoach'} } }
+    let(:slack_client) { double :slack_client }
     let(:slack_wrapper) { double :slack_klass, { new: slack_client } }
 
     subject do
@@ -13,14 +13,6 @@ describe Mechacoach do
 
     it 'notifies Slack' do
       expect(subject.slack_client).to eq slack_client
-    end
-
-    it 'sets up Slack integration with a channel' do
-      expect(subject.slack_client.default_payload[:channel]).to eq '#coaches'
-    end
-
-    it 'sets up Slack integration with a username' do
-      expect(subject.slack_client.default_payload[:username]).to eq 'mechacoach'
     end
 
     it 'makes Slack notifications' do

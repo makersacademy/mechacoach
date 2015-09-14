@@ -5,7 +5,7 @@ class Mechacoach
   attr_reader :slack_client, :github_client
 
   def initialize(github_klass = Octokit::Client, slack_klass = Slack::Notifier)
-    @slack_client = setup_slack(slack_klass)
+    @slack_client = SetupSlack.with(slack_klass)
     @github_client = setup_github(github_klass)
   end
 
@@ -26,19 +26,8 @@ class Mechacoach
 
   private
 
-  def setup_slack(slack_klass)
-    slack_klass.new(ENV['SLACK_WEBHOOK_URL'], slack_config_hash)
-  end
-
   def setup_github(github_klass)
     github_klass.new(github_auth_hash)
-  end
-
-  def slack_config_hash
-    {
-      channel:  '#coaches',
-      username: 'mechacoach'
-    }
   end
 
   def github_auth_hash

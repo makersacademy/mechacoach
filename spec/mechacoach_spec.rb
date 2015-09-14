@@ -8,7 +8,7 @@ describe Mechacoach do
     let(:slack_wrapper) { double :slack_klass, { new: slack_client } }
 
     subject do
-      Mechacoach.new(github_wrapper, slack_wrapper)
+      Mechacoach.new(github_klass: github_wrapper, slack_klass: slack_wrapper)
     end
 
     it 'notifies Slack' do
@@ -28,7 +28,7 @@ describe Mechacoach do
     let(:slack_wrapper) { double :slack_klass, { new: slack_client } }
 
     subject do
-      Mechacoach.new(github_wrapper, slack_wrapper)
+      Mechacoach.new(github_klass: github_wrapper, slack_klass: slack_wrapper)
     end
 
     it 'authenticates with GitHub' do
@@ -49,7 +49,7 @@ describe Mechacoach do
     let(:github_wrapper) { double :github_klass, { new: github_client } }
 
     subject do
-      Mechacoach.new(github_wrapper)
+      Mechacoach.new(github_klass: github_wrapper)
     end
 
     it 'makes fearsome comments' do

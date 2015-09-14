@@ -5,7 +5,7 @@ describe 'setting up Slack integration' do
   let(:github_wrapper) { double :github_klass, { new: github_client } }
 
   let(:coach) do
-    Mechacoach.new(github_wrapper)
+    Mechacoach.new(github_klass: github_wrapper)
   end
 
   it 'sets up Slack integration with a channel' do

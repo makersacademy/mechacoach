@@ -6,7 +6,7 @@ class Mechacoach
 
   def initialize(github_klass = Octokit::Client, slack_klass = Slack::Notifier)
     @slack_client = SetupSlack.with(slack_klass)
-    @github_client = setup_github(github_klass)
+    @github_client = SetupGithub.with(github_klass)
   end
 
   def notify(method = :be_fearsome)
@@ -25,17 +25,6 @@ class Mechacoach
   end
 
   private
-
-  def setup_github(github_klass)
-    github_klass.new(github_auth_hash)
-  end
-
-  def github_auth_hash
-    {
-      :login => ENV['GITHUB_USERNAME'], 
-      :password => ENV['GITHUB_PASSWORD']
-    }
-  end
 
   def slack_overflow_formatting_info
     <<-eos

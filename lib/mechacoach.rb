@@ -1,19 +1,17 @@
 require 'slack-notifier'
 require 'octokit'
-require_relative 'setup_slack'
+require_relative 'slack_notifier'
 require_relative 'setup_github'
+require_relative 'pair_fetcher'
+require_relative 'notification_record'
 
 class Mechacoach
-  attr_reader :slack_client, :github_client
+  attr_reader :slack_notifier, :github_client, :pair_fetcher
 
-  def initialize(github_klass: Octokit::Client, slack_klass: Slack::Notifier)
-    @slack_client = SetupSlack.with(slack_klass)
+  def initialize(slack_notifier: SlackNotifier, github_klass: Octokit::Client, pair_fetcher: PairFetcher)
+    @slack_notifier = slack_notifier
     @github_client = SetupGithub.with(github_klass)
-  end
-
-  def notify_slack(method = :be_fearsome)
-    notification = self.send(method)
-    slack_client.ping(notification, icon_emoji: ':tophat:')
+    @pair_fetcher = pair_fetcher
   end
 
   def slack_overflow_issue(issue_number)
@@ -22,11 +20,14 @@ class Mechacoach
     github_client.add_comment('makersacademy/slack-overflow', issue_number, slack_overflow_formatting_info)
   end
 
-  private
-
-  def be_fearsome
-    'Fear me! I am Mechacoach!'
+  def output_pairs(cohort)
+    slack_notifier.new({
+      team: 'makersstudents',
+      channel: "##{cohort}"
+    }).notify(pairs_for_today(cohort))
   end
+
+  private
 
   def slack_overflow_formatting_info
     <<-eos
@@ -38,5 +39,9 @@ A word to the wise - format overflow questions like this:
 
 That will help a casual browser to quickly point you in the right direction.
     eos
+  end
+
+  def pairs_for_today(cohort)
+    pair_fetcher.call_and_pop(cohort)
   end
 end

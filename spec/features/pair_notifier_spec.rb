@@ -1,50 +1,43 @@
 require 'mechacoach'
 
-describe Mechacoach do
-  context 'communicating with GitHub' do
-    let(:github_client) { double :github_client, { add_comment: {} } }
-    let(:github_wrapper) { double :github_klass, { new: github_client } }
-
-    subject do
-      Mechacoach.new(github_klass: github_wrapper)
-    end
-
-    it 'authenticates with GitHub' do
-      expect(subject.github_client).to eq github_client
-    end
-
-    it 'replies to a specific GitHub issue' do
-      expect { subject.slack_overflow_issue(test_slack_overflow_issue_number) }.not_to raise_error
-    end
-
-    it 'raises an error if passed malformed data' do
-      expect { subject.slack_overflow_issue(nil) }.to raise_error 'You must pass an issue number'
-    end
+describe 'drops pairs into the appropriate channel each day' do
+  let(:github_client) { double :github_client }
+  let(:github_wrapper) { double :github_klass, { new: github_client } }
+  let(:slack_notifier) { double :slack_notifier }
+  before do
+    allow(slack_notifier).to receive_message_chain(:new, :notify) { :notified }
   end
 
-  describe '#output_pairs' do
-    let(:github_client) { double :github_client }
-    let(:github_wrapper) { double :github_klass, { new: github_client } }
-    let(:pair_fetcher) { double :pair_fetcher, { call: october_2015_pairs } }
-    let(:slack_notifier) { double :slack_notifier }
-    before do
-      allow(slack_notifier).to receive_message_chain(:new, :notify) { :notified }
-    end
+  let(:coach) do
+    Mechacoach.new(slack_notifier: slack_notifier, github_klass: github_wrapper)
+  end
 
-    subject do
-      Mechacoach.new(slack_notifier: slack_notifier, github_klass: github_wrapper, pair_fetcher: pair_fetcher)
-    end
+  let(:pair_loader) { PairLoader }
+  let(:pair_fetcher) { PairFetcher }
+  let(:notification_record) { NotificationRecord }
 
-    it 'posts the pairs' do
-      expect(subject.output_pairs(:october_2015)).to eq :notified
+  it 'load and store possible pair combinations' do
+    pair_loader.call(:october2015, october_2015_pairs)
+    expect(pair_fetcher.call(:october2015)).to eq october_2015_pairs
+  end
+
+  it 'notify appropriate channel of daily pair combinations' do
+    expect(coach.output_pairs(:october2015)).to eq :notified
+  end
+
+  it 'notifies #coaches when out of pairs' do
+    # there are 25 pairs below, let's exhaust them
+    25.times do
+      coach.output_pairs(:october2015)
     end
+    coach.output_pairs(:october2015)
+    expect(notification_record.retrieve_last["message"]).to eq "I'm out of pairs for October2015. Fix me!"
+  end
+
+  xit 'turns off if #coaches do nothing when out of pairs' do
   end
 
   private
-
-  def test_slack_overflow_issue_number
-    95
-  end
 
   def october_2015_pairs
     [

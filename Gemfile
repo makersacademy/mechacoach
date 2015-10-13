@@ -10,3 +10,5 @@ gem 'dotenv'
 gem 'sinatra'
 gem 'capybara'
 gem 'capybara-json'
+
+gem 'redis'

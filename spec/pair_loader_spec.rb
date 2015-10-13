@@ -1,50 +1,17 @@
-require 'mechacoach'
+require 'pair_loader'
+require 'redis'
 
-describe Mechacoach do
-  context 'communicating with GitHub' do
-    let(:github_client) { double :github_client, { add_comment: {} } }
-    let(:github_wrapper) { double :github_klass, { new: github_client } }
+describe PairLoader do
+  let(:redis) { Redis.new }
 
-    subject do
-      Mechacoach.new(github_klass: github_wrapper)
-    end
-
-    it 'authenticates with GitHub' do
-      expect(subject.github_client).to eq github_client
-    end
-
-    it 'replies to a specific GitHub issue' do
-      expect { subject.slack_overflow_issue(test_slack_overflow_issue_number) }.not_to raise_error
-    end
-
-    it 'raises an error if passed malformed data' do
-      expect { subject.slack_overflow_issue(nil) }.to raise_error 'You must pass an issue number'
-    end
-  end
-
-  describe '#output_pairs' do
-    let(:github_client) { double :github_client }
-    let(:github_wrapper) { double :github_klass, { new: github_client } }
-    let(:pair_fetcher) { double :pair_fetcher, { call: october_2015_pairs } }
-    let(:slack_notifier) { double :slack_notifier }
-    before do
-      allow(slack_notifier).to receive_message_chain(:new, :notify) { :notified }
-    end
-
-    subject do
-      Mechacoach.new(slack_notifier: slack_notifier, github_klass: github_wrapper, pair_fetcher: pair_fetcher)
-    end
-
-    it 'posts the pairs' do
-      expect(subject.output_pairs(:october_2015)).to eq :notified
+  describe '.call' do
+    it 'commits pairs to a database' do
+      described_class.call(:october_2015, october_2015_pairs)
+      expect(JSON.parse(redis.get('october_2015_pairs'))).to eq october_2015_pairs
     end
   end
 
   private
-
-  def test_slack_overflow_issue_number
-    95
-  end
 
   def october_2015_pairs
     [

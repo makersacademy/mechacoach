@@ -14,7 +14,7 @@ Mechacoach exists to reduce the time coaches spend doing all the little admin th
 ### Getting Started
 
 - Fill a `.env` file with delicious credentials from LastPass, I guess. Mechacoach uses [Dotenv](https://github.com/bkeepers/dotenv) for secret stuff, like webhooks.
-- Mechacoach works via [`rake`](https://github.com/ruby/rake). Check out the Rakefile for deets.
+- If you want to test pairing functionality, make sure you've run `redis-server`.
 
 ### Extending Mechacoach
 

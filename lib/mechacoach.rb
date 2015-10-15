@@ -42,6 +42,6 @@ That will help a casual browser to quickly point you in the right direction.
   end
 
   def pairs_for_today(cohort)
-    pair_fetcher.call_and_pop(cohort)
+    pair_fetcher.call(cohort)[0]
   end
 end

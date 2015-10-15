@@ -10,13 +10,12 @@ class PairLoader
   end
 
   def commit(cohort)
-    redis = connect_redis
     redis.set("#{cohort}_pairs", pairs.to_json)
   end
 
   private
 
-  def connect_redis
+  def redis
     Redis.new
   end
 end

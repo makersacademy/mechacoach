@@ -7,12 +7,13 @@ require_relative 'pair_tracker'
 require_relative 'notification_record'
 
 class Mechacoach
-  attr_reader :slack_notifier, :github_client, :pair_fetcher
+  attr_reader :slack_notifier, :github_client, :pair_fetcher, :pair_tracker
 
-  def initialize(slack_notifier: SlackNotifier, github_klass: Octokit::Client, pair_fetcher: PairFetcher)
+  def initialize(slack_notifier: SlackNotifier, github_klass: Octokit::Client, pair_fetcher: PairFetcher, pair_tracker: PairTracker)
     @slack_notifier = slack_notifier
     @github_client = SetupGithub.with(github_klass)
     @pair_fetcher = pair_fetcher
+    @pair_tracker = pair_tracker
   end
 
   def slack_overflow_issue(issue_number)
@@ -27,7 +28,7 @@ class Mechacoach
         team: 'makersstudents',
         channel: "##{cohort}"
       }).notify(pairs_for_today(cohort))
-      PairTracker.increment(cohort)
+      pair_tracker.increment(cohort)
       :notified
     else
       slack_notifier.new.notify(out_of_pairs(cohort))
@@ -49,7 +50,7 @@ That will help a casual browser to quickly point you in the right direction.
   end
 
   def pairs_for_today(cohort)
-    pair_fetcher.call(cohort)[PairTracker.index(cohort)]
+    pair_fetcher.call(cohort)[pair_tracker.index(cohort)]
   end
 
   def out_of_pairs(cohort)

@@ -3,13 +3,13 @@ require 'mechacoach'
 describe 'drops pairs into the appropriate channel each day' do
   let(:github_client) { double :github_client }
   let(:github_wrapper) { double :github_klass, { new: github_client } }
-  let(:slack_notifier) { double :slack_notifier }
+
   before do
-    allow(slack_notifier).to receive_message_chain(:new, :notify) { :notified }
+    allow_any_instance_of(Slack::Notifier).to receive(:ping).and_return(true)
   end
 
   let(:coach) do
-    Mechacoach.new(slack_notifier: slack_notifier, github_klass: github_wrapper)
+    Mechacoach.new(github_klass: github_wrapper)
   end
 
   let(:pair_loader) { PairLoader }
@@ -21,8 +21,14 @@ describe 'drops pairs into the appropriate channel each day' do
     expect(pair_fetcher.call(:october2015)).to eq october_2015_pairs
   end
 
+  it 'notifies channel with the first pair combination' do
+    coach.output_pairs(:october2015)
+    expect(notification_record.retrieve_last["message"]).to eq october_2015_pairs[0]
+  end
+
   it 'notify appropriate channel of daily pair combinations' do
-    expect(coach.output_pairs(:october2015)).to eq :notified
+    coach.output_pairs(:october2015)
+    expect(notification_record.retrieve_last["channel"]).to eq '#october2015'
   end
 
   it 'notifies #coaches when out of pairs' do

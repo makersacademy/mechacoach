@@ -1,53 +1,25 @@
-require 'mechacoach'
+require 'pair_tracker'
+require 'redis'
 
-describe 'drops pairs into the appropriate channel each day' do
-  let(:github_client) { double :github_client }
-  let(:github_wrapper) { double :github_klass, { new: github_client } }
+describe PairTracker do
+  let(:redis) { Redis.new }
 
   before do
-    allow_any_instance_of(Slack::Notifier).to receive(:ping).and_return(true)
-    Redis.new.set("october2015_index", 0)
+    redis.set('october2015_pairs', october_2015_pairs.to_json)
+    redis.set('october2015_index', 0)
   end
 
-  let(:coach) do
-    Mechacoach.new(github_klass: github_wrapper)
-  end
-
-  let(:pair_loader) { PairLoader }
-  let(:pair_fetcher) { PairFetcher }
-  let(:notification_record) { NotificationRecord }
-
-  it 'load and store possible pair combinations' do
-    pair_loader.call(:october2015, october_2015_pairs)
-    expect(pair_fetcher.call(:october2015)).to eq october_2015_pairs
-  end
-
-  it 'notifies channel with the first pair combination' do
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["message"]).to eq october_2015_pairs[0]
-  end
-
-  it 'moves on to the next pair combination subsequently' do
-    coach.output_pairs(:october2015)
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["message"]).to eq october_2015_pairs[1]
-  end
-
-  it 'notify appropriate channel of daily pair combinations' do
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["channel"]).to eq '#october2015'
-  end
-
-  it 'notifies #coaches when out of pairs' do
-    # there are 25 pairs below, let's exhaust them
-    25.times do
-      coach.output_pairs(:october2015)
+  describe '.index' do
+    it 'retrieves the pair index' do
+      expect(described_class.index(:october2015)).to eq 0
     end
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["message"]).to eq "I'm out of pairs for October2015. Fix me!"
   end
 
-  xit 'turns off if #coaches do nothing when out of pairs' do
+  describe '.increment' do
+    it 'increments the pair index' do
+      described_class.increment(:october2015)
+      expect(described_class.index(:october2015)).to eq 1
+    end
   end
 
   private

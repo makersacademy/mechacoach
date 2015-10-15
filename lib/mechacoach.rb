@@ -3,6 +3,7 @@ require 'octokit'
 require_relative 'slack_notifier'
 require_relative 'setup_github'
 require_relative 'pair_fetcher'
+require_relative 'pair_tracker'
 require_relative 'notification_record'
 
 class Mechacoach
@@ -21,10 +22,16 @@ class Mechacoach
   end
 
   def output_pairs(cohort)
-    slack_notifier.new({
-      team: 'makersstudents',
-      channel: "##{cohort}"
-    }).notify(pairs_for_today(cohort))
+    if pairs_for_today(cohort)
+      slack_notifier.new({
+        team: 'makersstudents',
+        channel: "##{cohort}"
+      }).notify(pairs_for_today(cohort))
+      PairTracker.increment(cohort)
+      :notified
+    else
+      slack_notifier.new.notify(out_of_pairs(cohort))
+    end
   end
 
   private
@@ -42,6 +49,10 @@ That will help a casual browser to quickly point you in the right direction.
   end
 
   def pairs_for_today(cohort)
-    pair_fetcher.call(cohort)[0]
+    pair_fetcher.call(cohort)[PairTracker.index(cohort)]
+  end
+
+  def out_of_pairs(cohort)
+    "I'm out of pairs for #{cohort.capitalize}. Fix me!"
   end
 end

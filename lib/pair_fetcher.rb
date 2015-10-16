@@ -1,5 +1,4 @@
 require 'json'
-require 'pair_loader'
 
 class PairFetcher
   def self.call(cohort)

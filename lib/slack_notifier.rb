@@ -11,11 +11,12 @@ class SlackNotifier
   end
 
   def notify(message = default_message)
-    notification = { channel: channel, message: message }
-    if client.ping(message)
-      NotificationRecord.store(notification)
-      :notified
+    if client.ping(message).code == '500'
+      return client.ping(message).body
     end
+    notification = { channel: channel, message: message }
+    NotificationRecord.store(notification)
+    :notified
   end
 
   private

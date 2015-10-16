@@ -2,6 +2,12 @@ require 'mechacoach'
 require 'parse_github'
 
 describe 'posting to Slack Overflow' do
+  include Rack::Test::Methods
+
+  def app
+    MechacoachServer
+  end
+
   let(:coach) { Mechacoach.new }
   let(:response) do
     {
@@ -21,11 +27,6 @@ describe 'posting to Slack Overflow' do
     it 'forwards params from the webhook to a notifier' do
       expect_any_instance_of(Mechacoach).to receive(:slack_overflow_issue)
       post '/new-slack-overflow-issue', example_issue_opening_payload
-    end
-
-    it 'raises an error if the webhook payload is unexpected' do
-      post('/new-slack-overflow-issue', bad_payload)
-      expect(page).to have_content '500'
     end
 
     it 'posts formatting information for that question' do
@@ -51,12 +52,6 @@ That will help a casual browser to quickly point you in the right direction.
 
   def test_slack_overflow_issue_number
     95
-  end
-
-  def bad_payload
-    {
-      "error": true
-    }.to_json
   end
 
   def example_issue_opening_payload

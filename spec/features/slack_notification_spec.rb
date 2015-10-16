@@ -2,7 +2,8 @@ require 'mechacoach'
 require 'notification_record'
 
 describe 'Making Slack notifications' do
-  let(:slack_client) { double :slack_client, { ping: true } }
+  let(:response) { double :http_response, { code: '200' } }
+  let(:slack_client) { double :slack_client, { ping: response } }
   let(:slack_client_class) { double :slack_client_class, { new: slack_client } }
 
   let(:notifier) do

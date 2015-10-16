@@ -1,5 +1,6 @@
 require 'load_env'
 require 'rspec'
+require 'rack/test'
 require 'capybara/rspec'
 require 'capybara/json'
 require_relative '../app/server'
@@ -8,7 +9,6 @@ ENV['RACK_ENV'] = 'test'
 
 # Add Sinatra integration using Capybara
 Capybara.app = MechacoachServer
-Capybara.current_driver = :rack_test_json
 
 # Configure RSpec
 RSpec.configure do |config|

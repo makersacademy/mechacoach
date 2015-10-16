@@ -1,53 +1,20 @@
-require 'mechacoach'
+require 'parse_pair_file'
 
-describe 'drops pairs into the appropriate channel each day' do
-  let(:github_client) { double :github_client }
-  let(:github_wrapper) { double :github_klass, { new: github_client } }
-
-  before do
-    allow_any_instance_of(Slack::Notifier).to receive_message_chain(:ping, :code).and_return('200')
-    Redis.new.set("october2015_index", 0)
-  end
-
-  let(:coach) do
-    Mechacoach.new(github_klass: github_wrapper)
-  end
-
-  let(:pair_loader) { PairLoader }
-  let(:pair_fetcher) { PairFetcher }
-  let(:notification_record) { NotificationRecord }
-
-  it 'load and store possible pair combinations' do
-    pair_loader.call(:october2015, october_2015_pairs)
-    expect(pair_fetcher.call(:october2015)).to eq october_2015_pairs
-  end
-
-  it 'notifies channel with the first pair combination' do
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["message"]).to eq october_2015_pairs[0]
-  end
-
-  it 'moves on to the next pair combination subsequently' do
-    coach.output_pairs(:october2015)
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["message"]).to eq october_2015_pairs[1]
-  end
-
-  it 'notify appropriate channel of daily pair combinations' do
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["channel"]).to eq '#october2015'
-  end
-
-  it 'notifies #coaches when out of pairs' do
-    # there are 25 pairs below, let's exhaust them
-    25.times do
-      coach.output_pairs(:october2015)
+describe ParsePairFile do
+  describe '.with' do
+    context 'provided a good file' do
+      let(:good_file) { File.absolute_path('spec/fixtures/good_pairs.txt') }
+      it 'returns the pairs' do
+        expect(described_class.with(good_file)).to eq october_2015_pairs
+      end
     end
-    coach.output_pairs(:october2015)
-    expect(notification_record.retrieve_last["message"]).to eq "I'm out of pairs for October2015. Fix me!"
-  end
 
-  xit 'turns off if #coaches do nothing when out of pairs' do
+    context 'provided a poor file' do
+      let(:bad_file) { File.absolute_path('spec/fixtures/bad_pairs.txt') }
+      it 'returns nil' do
+        expect(described_class.with(bad_file)).to be_nil
+      end
+    end
   end
 
   private

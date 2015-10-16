@@ -4,6 +4,10 @@ require 'redis'
 describe PairLoader do
   let(:redis) { Redis.new }
 
+  before do
+    Redis.new.set('october_2015_pairs', nil)
+  end
+
   describe '.call' do
     it 'commits pairs to a database' do
       described_class.call(:october_2015, october_2015_pairs)

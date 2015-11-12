@@ -3,22 +3,32 @@ require 'byebug'
 feature 'Pair release slack notification' do
   context 'for one cohort "test2016"' do
     let(:params) { { cohort: 'test2016', release_time: Time.now } }
-    let(:store) {  { test2016: [['jon', 'andrew'], ['andrew','jon']] } }
+    let(:pairs) { Pairs.new([['jon', 'andrew'], ['andrew','jon']]) }
 
-    scenario 'requests to "/pairs/release" releases a pair assignment to slack' do
-      # allow_any_instance_of(Pairs).to receive(:fetch).with(:test2016).and_return([['jon', 'andrew'], ['andrew','jon']])
-      allow(Pairs).to receive(:next).with('test2016').and_return(['jon', 'andrew'])
+    before do
+      allow_any_instance_of(Pairs).to receive(:find).with(:test2016).and_return(pairs)
+      allow_any_instance_of(SlackNotifier).to receive(:notify)
+    end
+
+    scenario 'request to "/pairs/release" releases a pair assignment to slack' do
       expect_any_instance_of(SlackNotifier).to receive(:notify).with('pairs: jon, andrew')
       response = post('/pairs/release', params)
       expect(response.status).to eq 200
     end
 
-    scenario 'requests to "/pairs/release" release subsequent pair assignment in the sequence' do
-      allow(Pairs).to receive(:next).with('test2016').and_return(['jon', 'andrew'], ['andrew', 'jon'])
-      response = post('/pairs/release', params) 
+    scenario 'second request to "/pairs/release" releases subsequent pair assignment in the sequence' do
+      response = post('/pairs/release', params)
+
       expect_any_instance_of(SlackNotifier).to receive(:notify).with('pairs: andrew, jon')
-      response = post('/pairs/release', params) 
-      expect(response.status).to eq 200
+      response = post('/pairs/release', params)
+    end
+
+    scenario 'pair release cycles when pairs have run out' do
+      response = post('/pairs/release', params)
+      response = post('/pairs/release', params)
+
+      expect_any_instance_of(SlackNotifier).to receive(:notify).with('pairs: jon, andrew')
+      response = post('/pairs/release', params)
     end
   end
 

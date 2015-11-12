@@ -5,12 +5,7 @@ require './lib/mechacoach'
 require './lib/find_channel'
 require './lib/parse_pair_file'
 require './lib/pair_loader'
-
-class Pairs
-  def self.next(cohort)
-    # ['andrew', 'jon']
-  end
-end
+require './app/models/pair_assignments'
 
 class MechacoachServer < Sinatra::Base
   # before do
@@ -26,7 +21,8 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/pairs/release' do
-    pairs = Pairs.next(params[:cohort])
+    assignemnts = PairAssignments.find(params[:cohort])
+    pairs = assignments.next
     SlackNotifier.new.notify("pairs: #{pairs.join(', ')}")
   end
 

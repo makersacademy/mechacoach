@@ -16,8 +16,8 @@ describe SlackNotifier do
       expect(subject.client).to eq slack_client
     end
 
-    it 'defaults to the #coaches channel' do
-      expect(subject.channel).to eq '#coaches'
+    it 'defaults to the #testing channel' do
+      expect(subject.channel).to eq '#testing'
     end
 
     it 'defaults to mechacoach username' do

@@ -19,7 +19,7 @@ describe 'Making Slack notifications' do
   end
 
   it 'remembers the last Slack communiqué' do
-    expected_notification = { "channel" => '#coaches', "message" => 'Fear me! I am Mechacoach!' }
+    expected_notification = { "channel" => '#testing', "message" => 'Fear me! I am Mechacoach!' }
     
     notifier.notify
     expect(notification_record.retrieve_last).to eq expected_notification

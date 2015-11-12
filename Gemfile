@@ -13,4 +13,8 @@ gem 'capybara'
 gem 'capybara-json'
 
 gem 'redis'
-gem 'byebug'
+
+group :test do
+  gem 'byebug' 
+end
+

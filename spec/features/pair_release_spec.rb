@@ -1,5 +1,3 @@
-require 'byebug'
-
 feature 'Pair release slack notification' do
 
   before { allow_any_instance_of(SlackNotifier).to receive(:notify) }

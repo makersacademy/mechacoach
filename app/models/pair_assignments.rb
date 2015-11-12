@@ -24,6 +24,6 @@ class PairAssignments
   private
 
   def index
-    PairAssignments.repo.get("#{cohort}_index").to_i
+    PairAssignments.repo.get("#{cohort}_index").to_i % @assignments.count
   end
 end

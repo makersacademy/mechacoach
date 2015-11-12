@@ -32,7 +32,7 @@ describe PairAssignments do
 
     it 'gets the index from the repo' do
       expect(repo).to receive(:get).with('test2015_index')
-      assignments.next      
+      assignments.next
     end
 
     it 'returns the first assignment first' do
@@ -48,6 +48,12 @@ describe PairAssignments do
     it 'returns the second assignment second' do
       allow(repo).to receive(:get).with('test2015_index').and_return(1)
       expect(assignments.next).to eq [['jon', 'phil'], ['bob', 'andrew']]
+    end
+
+    it 'cycles when reaching the last assignment' do
+      allow(repo).to receive(:get).with('test2015_index').and_return(2, 3)
+      assignments.next
+      expect(assignments.next).to eq [['jon', 'andrew'], ['bob', 'phil']]
     end
   end
 end

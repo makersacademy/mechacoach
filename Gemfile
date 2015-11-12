@@ -13,3 +13,4 @@ gem 'capybara'
 gem 'capybara-json'
 
 gem 'redis'
+gem 'byebug'

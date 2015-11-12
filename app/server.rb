@@ -6,6 +6,12 @@ require './lib/find_channel'
 require './lib/parse_pair_file'
 require './lib/pair_loader'
 
+class Pairs
+  def self.next(cohort)
+    # ['andrew', 'jon']
+  end
+end
+
 class MechacoachServer < Sinatra::Base
   # before do
   #   request.body.rewind
@@ -17,6 +23,11 @@ class MechacoachServer < Sinatra::Base
 
   get '/' do
     "wotcher."
+  end
+
+  post '/pairs/release' do
+    pairs = Pairs.next(params[:cohort])
+    SlackNotifier.new.notify("pairs: #{pairs.join(', ')}")
   end
 
   get '/load-pairs' do

@@ -1,10 +1,13 @@
 require_relative 'notification_record'
 
 class SlackNotifier
+  def self.notify(message)
+  end
+
   DEFAULT_USERNAME = 'mechacoach'
   attr_reader :client, :channel, :username
 
-  def initialize(client_class: Slack::Notifier, team: 'makersacademy', channel: '#coaches')
+  def initialize(client_class: Slack::Notifier, team: 'makersacademy', channel: '#testing')
     @username = DEFAULT_USERNAME
     @channel = channel
     @client = client_class.new(ENV["SLACK_WEBHOOK_URL_#{team}"], config(channel))

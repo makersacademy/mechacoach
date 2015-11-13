@@ -7,6 +7,8 @@ require './lib/parse_pair_file'
 require './lib/pair_loader'
 require './app/models/pair_assignments'
 
+require 'byebug'
+
 class MechacoachServer < Sinatra::Base
   # before do
   #   request.body.rewind
@@ -38,7 +40,7 @@ class MechacoachServer < Sinatra::Base
       redirect '/load-pairs'
     end
 
-    pairs = ParsePairFile.with(params[:file])
+    pairs = ParsePairFile.with(params[:pairs][:tempfile])
 
     if PairLoader.new(pairs).commit(cohort)
       flash[:success] = "Your pairs (#{cohort}) were loaded successfully."

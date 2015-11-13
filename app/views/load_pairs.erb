@@ -3,7 +3,7 @@
 
 <%= styled_flash %>
 
-<form action="/load-pairs" method="post">
+<form action="/load-pairs" method="post", enctype="multipart/form-data">
   <label for="cohort">
     Use the precise form of the cohort channel name from Slack, without the prepended #. e.g. october2015
     <input type="text" name="cohort" placeholder="e.g. october2015">

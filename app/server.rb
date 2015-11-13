@@ -40,9 +40,8 @@ class MechacoachServer < Sinatra::Base
 
     pairs = ParsePairFile.with(params[:pairs][:tempfile])
 
-    if PairLoader.new(pairs).commit(cohort)
-      flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
-    end
+    PairAssignments.create(cohort, pairs)
+    flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
   end
 
   post '/new-slack-overflow-issue' do

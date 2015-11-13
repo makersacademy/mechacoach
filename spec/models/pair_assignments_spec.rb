@@ -21,6 +21,11 @@ describe PairAssignments do
     PairAssignments.find(:test2015)
   end
 
+  it 'creates entries in the repo' do
+    expect(repo).to receive(:set).with("test2015_pairs", assignments_json)
+    PairAssignments.create(:test2015, assignments_source)
+  end
+
   it 'returns nil if the cohort does not exist' do
     allow(repo).to receive(:get).and_return(nil)
     expect(PairAssignments.find(:junk)).not_to be

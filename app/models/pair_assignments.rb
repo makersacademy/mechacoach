@@ -3,10 +3,22 @@ class PairAssignments
     Redis.new
   end
 
-  def self.find(cohort)
-    data = repo.get("#{cohort}_pairs")
-    return nil unless data
-    PairAssignments.new(cohort, JSON.parse(repo.get("#{cohort}_pairs")))
+  class << self
+    def find(cohort)
+      data = repo.get(pairs_key(cohort))
+      return nil unless data
+      PairAssignments.new(cohort, JSON.parse(data))
+    end
+
+    def create(cohort, assignments)
+      repo.set(pairs_key(cohort), assignments.to_json)
+    end
+
+    private
+
+    def pairs_key(cohort)
+      "#{cohort}_pairs"
+    end
   end
 
   attr_reader :cohort
@@ -20,12 +32,16 @@ class PairAssignments
   def next
     @assignments[index]
   ensure
-    PairAssignments.repo.incr("#{cohort}_index")
+    PairAssignments.repo.incr(index_key)
   end
 
   private
 
+  def index_key
+    "#{cohort}_index"
+  end
+
   def index
-    PairAssignments.repo.get("#{cohort}_index").to_i % @assignments.count
+    PairAssignments.repo.get(index_key).to_i % @assignments.count
   end
 end

@@ -12,10 +12,12 @@ class ReleasePairs
 
   def run
     assignments = PairAssignments.find(cohort)
-    SlackNotifier.new(channel: cohort_channel).notify(message(assignments))
+    SlackNotifier.new(channel: cohort_channel, team: TEAM).notify(message(assignments))
   end
 
   private
+
+  TEAM = 'makersstudents'
 
   def message(assignments)
     pairs = assignments.next.map{|a| a.join(", ")}.join("\n")

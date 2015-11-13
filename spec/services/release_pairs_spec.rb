@@ -39,6 +39,7 @@ describe ReleasePairs do
     allow_any_instance_of(PairAssignments).to receive(:next).and_return([['bob', 'sarah']])
     expect(SlackNotifier).to receive(:new) do |args|
       expect(args[:channel]).to eq '#test2017'
+      expect(args[:team]).to eq 'makersstudents'
       notifier
     end
     expect(notifier).to receive(:notify) do |message|

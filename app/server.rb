@@ -6,8 +6,6 @@ require './lib/find_channel'
 require './lib/parse_pair_file'
 require './app/models/pair_assignments'
 
-require 'byebug'
-
 class MechacoachServer < Sinatra::Base
   enable :sessions
   register Sinatra::Flash

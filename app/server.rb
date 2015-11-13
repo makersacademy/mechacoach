@@ -23,9 +23,7 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/pairs/release' do
-    assignments = PairAssignments.find(params[:cohort])
-    pairs = assignments.next.map{|a| a.join(", ")}.join("\n")
-    SlackNotifier.new.notify("pairs:\n\n#{pairs}")
+    ReleasePairs.with(cohort: params[:cohort])
   end
 
   get '/pairs/load' do

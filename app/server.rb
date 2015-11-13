@@ -32,9 +32,8 @@ class MechacoachServer < Sinatra::Base
       redirect '/pairs/load'
     end
 
-    pairs = ParsePairFile.with(params[:pairs][:tempfile])
+    LoadPairs.with(cohort: cohort, file: params[:pairs][:tempfile])
 
-    PairAssignments.create(cohort, pairs)
     flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
   end
 

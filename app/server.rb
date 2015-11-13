@@ -4,17 +4,11 @@ require './lib/parse_github'
 require './lib/mechacoach'
 require './lib/find_channel'
 require './lib/parse_pair_file'
-require './lib/pair_loader'
 require './app/models/pair_assignments'
 
 require 'byebug'
 
 class MechacoachServer < Sinatra::Base
-  # before do
-  #   request.body.rewind
-  #   @request_payload = JSON.parse request.body.read
-  # end
-
   enable :sessions
   register Sinatra::Flash
 

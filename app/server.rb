@@ -28,16 +28,16 @@ class MechacoachServer < Sinatra::Base
     SlackNotifier.new.notify("pairs:\n\n#{pairs}")
   end
 
-  get '/load-pairs' do
-    erb :load_pairs
+  get '/pairs/load' do
+    erb :'pairs/load'
   end
 
-  post '/load-pairs' do
+  post '/pairs' do
     cohort = params[:cohort]
 
     unless FindChannel.with(cohort)
       flash[:error] = "'##{cohort}' is not a student slack channel. Check the cohort name and try again."
-      redirect '/load-pairs'
+      redirect '/pairs/load'
     end
 
     pairs = ParsePairFile.with(params[:pairs][:tempfile])

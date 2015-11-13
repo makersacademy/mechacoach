@@ -1,12 +1,12 @@
 describe 'loading pairs via GUI' do
   it 'prompts the user to use the slack channel name' do
-    visit '/load-pairs'
+    visit '/pairs/load'
     expect(page).to have_content 'Use the precise form of the cohort channel name from Slack, without the prepended #. e.g. october2015'
   end
 
   context 'with a non-existent cohort name' do
     it 'asks the user to check the cohort name' do
-      visit '/load-pairs'
+      visit '/pairs/load'
       fill_in('cohort', with: 'october 2015')
       attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
       click_button 'Submit'
@@ -17,7 +17,7 @@ describe 'loading pairs via GUI' do
   context 'with an existent cohort name and a well-formed pair file' do
     it 'commits the pairs correctly' do
       Redis.new.set('october2015_pairs', nil)
-      visit '/load-pairs'
+      visit '/pairs/load'
       fill_in('cohort', with: 'october2015')
       attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
       click_button 'Submit'

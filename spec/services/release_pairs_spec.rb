@@ -1,5 +1,3 @@
-require './app/services/release_pairs'
-
 describe ReleasePairs do
   subject(:service) { ReleasePairs.new(cohort: :test2017) }
 

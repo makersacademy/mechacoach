@@ -1,5 +1,3 @@
-require './app/models/pair_assignments.rb'
-
 describe PairAssignments do
   let(:assignments_source) { [
     [['jon', 'andrew'], ['bob', 'phil']],

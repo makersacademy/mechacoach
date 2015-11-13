@@ -1,5 +1,3 @@
-require './app/services/load_pairs'
-
 describe LoadPairs do
   let(:assignments_source) { [
     [['jon', 'andrew'], ['bob', 'phil']],

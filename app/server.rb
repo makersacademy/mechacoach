@@ -5,6 +5,8 @@ require './lib/mechacoach'
 require './lib/find_channel'
 require './lib/parse_pair_file'
 require './app/models/pair_assignments'
+require './app/services/release_pairs'
+require './app/services/load_pairs'
 
 class MechacoachServer < Sinatra::Base
   enable :sessions

@@ -21,6 +21,11 @@ describe PairAssignments do
     PairAssignments.find(:test2015)
   end
 
+  it 'returns nil if the cohort does not exist' do
+    allow(repo).to receive(:get).and_return(nil)
+    expect(PairAssignments.find(:junk)).not_to be
+  end
+
   it 'knows which cohort it was initialized for' do
     expect(assignments.cohort).to eq :test2015
   end

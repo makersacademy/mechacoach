@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.3'
+
 gem 'rake'
 gem 'rspec'
 # Write new Slack messages following https://github.com/stevenosloan/slack-notifier
@@ -13,3 +15,7 @@ gem 'capybara'
 gem 'capybara-json'
 
 gem 'redis'
+
+group :test do
+  gem 'byebug'
+end

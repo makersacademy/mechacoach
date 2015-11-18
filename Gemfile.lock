@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.8)
+    byebug (6.0.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -63,6 +64,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   capybara
   capybara-json
   dotenv

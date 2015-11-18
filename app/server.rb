@@ -4,14 +4,11 @@ require './lib/parse_github'
 require './lib/mechacoach'
 require './lib/find_channel'
 require './lib/parse_pair_file'
-require './lib/pair_loader'
+require './app/models/pair_assignments'
+require './app/services/release_pairs'
+require './app/services/load_pairs'
 
 class MechacoachServer < Sinatra::Base
-  # before do
-  #   request.body.rewind
-  #   @request_payload = JSON.parse request.body.read
-  # end
-
   enable :sessions
   register Sinatra::Flash
 
@@ -19,23 +16,25 @@ class MechacoachServer < Sinatra::Base
     "wotcher."
   end
 
-  get '/load-pairs' do
-    erb :load_pairs
+  post '/pairs/release' do
+    ReleasePairs.with(cohort: params[:cohort])
   end
 
-  post '/load-pairs' do
+  get '/pairs/load' do
+    erb :'pairs/load'
+  end
+
+  post '/pairs' do
     cohort = params[:cohort]
 
     unless FindChannel.with(cohort)
       flash[:error] = "'##{cohort}' is not a student slack channel. Check the cohort name and try again."
-      redirect '/load-pairs'
+      redirect '/pairs/load'
     end
 
-    pairs = ParsePairFile.with(params[:file])
+    LoadPairs.with(cohort: cohort, file: params[:pairs][:tempfile])
 
-    if PairLoader.new(pairs).commit(cohort)
-      flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
-    end
+    flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
   end
 
   post '/new-slack-overflow-issue' do

@@ -3,14 +3,14 @@ require 'parse_pair_file'
 describe ParsePairFile do
   describe '.with' do
     context 'provided a good file' do
-      let(:good_file) { File.absolute_path('spec/fixtures/good_pairs.txt') }
+      let(:good_file) { File.open('spec/fixtures/good_pairs.txt') }
       it 'returns the pairs' do
         expect(described_class.with(good_file)).to eq october_2015_pairs
       end
     end
 
     context 'provided a poor file' do
-      let(:bad_file) { File.absolute_path('spec/fixtures/bad_pairs.txt') }
+      let(:bad_file) { File.open('spec/fixtures/bad_pairs.txt') }
       it 'returns nil' do
         expect(described_class.with(bad_file)).to be_nil
       end

@@ -15,14 +15,14 @@ An example command line workflow using [hub](https://github.com/github/hub) to c
 
 ### In Progress
 ```
-git checkout -b 295-dates-on-apply-page
-git push -u origin 295-dates-on-apply-page
+git checkout -b 295-more-cheese-references
+git push -u origin 295-more-cheese-references
 ```
 
 ### QA
 ```
-git checkout 295-dates-on-apply-page
-git commit -am "Adds dates on apply page. Closes #295"
+git checkout 295-more-cheese-references
+git commit -am "Adds links and references for Stilton and Brie. Closes #295"
 git push
 git pull-request -b develop
 ```
@@ -31,7 +31,7 @@ Once you've got the thumbs up:
 
 ```
 git checkout develop
-git merge 295-dates-on-apply-page
+git merge 295-more-cheese-references
 git push
 git push staging develop:master
 ```

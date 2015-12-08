@@ -44,4 +44,9 @@ class MechacoachServer < Sinatra::Base
     handler.slack_overflow_issue(issue_number)
     200
   end
+
+  post '/challenges/:name/review' do
+    require 'byebug'
+    byebug
+  end
 end

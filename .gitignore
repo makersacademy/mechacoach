@@ -37,3 +37,6 @@ build/
 
 # Take a peek in LastPass for .env stuff (using Dotenv)
 .env
+
+client_secret.json
+google_token.json

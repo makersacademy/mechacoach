@@ -46,7 +46,6 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/challenges/:name/review' do
-    require 'byebug'
-    byebug
+    params.to_s
   end
 end

@@ -9,13 +9,48 @@ class SubmitChallengeReview
     service.run
   end
 
-  def initialize(content:, name:, github_user:)
+  attr_reader :content, :name, :github_user
 
+  def initialize(content:, name:, github_user:)
+    @content = content
+    @name = name
+    @github_user = github_user
   end
 
   def run
-    session = GoogleDrive.saved_session("./stored_token.json", nil, ENV['GAPI_CLIENT_ID'], ENV['GAPI_CLIENT_SECRET'])
-    ws = session.spreadsheet_by_key('1DxFAHuoub4MnIuRNDOfoCaUWNgrt9Z3LzGUfD6kMubs').worksheets[0]
-    ws.rows[0].join(', ')
+    worksheet.rows.first
   end
+
+  private
+
+  def worksheet
+    document.worksheet_by_gid(SubmitChallengeReview.worksheet_id(name))
+  end
+
+  def document
+    session.spreadsheet_by_key(SubmitChallengeReview.document_id(name))
+  end
+
+  def session
+    @session ||= GoogleDrive.saved_session("./stored_token.json", nil, ENV['GAPI_CLIENT_ID'], ENV['GAPI_CLIENT_SECRET'])
+  end
+
+  class << self
+
+    def document_id(name)
+      config[name]['document_id']
+    end
+
+    def worksheet_id(name)
+      config[name]['worksheet_id']
+    end
+
+    private
+
+    def config
+      @config ||= YAML.load(File.open('./submit_challenge_review.config'))
+    end
+
+  end
+
 end

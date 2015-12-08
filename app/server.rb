@@ -7,6 +7,7 @@ require './lib/parse_pair_file'
 require './app/models/pair_assignments'
 require './app/services/release_pairs'
 require './app/services/load_pairs'
+require './app/services/submit_challenge_review'
 
 class MechacoachServer < Sinatra::Base
   enable :sessions

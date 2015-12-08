@@ -16,6 +16,8 @@ gem 'capybara-json'
 
 gem 'redis'
 
+gem 'google_drive'
+
 group :test do
   gem 'byebug'
 end

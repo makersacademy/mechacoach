@@ -2,11 +2,15 @@ require "google/api_client"
 require "google_drive"
 
 class SubmitChallengeReview
-  def with(content:, name:, github_user:)
+  def self.with(content:, name:, github_user:)
     # 1. identify the pull request to post to
     # 2. pull down the correct headers
     service = SubmitChallengeReview.new(content: content, name: name, github_user: github_user)
     service.run
+  end
+
+  def initialize(content:, name:, github_user:)
+
   end
 
   def run

@@ -5,11 +5,16 @@ describe SubmitChallengeReview do
   let(:document) { double(:document, worksheet_by_gid: worksheet) }
   let(:worksheet) { double(:document, rows: [CONTENT.keys.map(&:to_s).map(&:upcase)]) }
 
+  let(:github_client) { double(:github_client, pull_requests: [pull_request], add_comment: nil) }
+  let(:pull_request) { double(:pull_request, number: 1234) }
+
   config = YAML.load(File.open('./spec/fixtures/submit_challenge_review.config'))
 
   before do
     allow(GoogleDrive).to receive(:saved_session).and_return(session)
     allow(SubmitChallengeReview).to receive(:config).and_return(config)
+    allow(service).to receive(:github_client).and_return(github_client)
+    allow(pull_request).to receive_message_chain('user.login.downcase').and_return('test_user')
   end
 
 
@@ -20,6 +25,8 @@ describe SubmitChallengeReview do
         expect(options[:name]).to eq 'test_challenge'
         expect(options[:github_user]).to eq 'test_user'
       end.and_call_original
+
+      allow_any_instance_of(SubmitChallengeReview).to receive(:run)
 
       SubmitChallengeReview.with(content: CONTENT, name: 'test_challenge', github_user: 'test_user')
     end
@@ -62,10 +69,8 @@ describe SubmitChallengeReview do
   end
 
   it 'does not include good parts in needing improvement' do
-    # the needs_improvement headings will come from the google doc.
-    # the mock of this just returns the uppercase of the key to prove it is called.
-      good_parts = REVIEW.values.reject { |content| content.empty? }
-      good_parts.each do |content|
+    good_parts = REVIEW.values.reject { |content| content.empty? }
+    good_parts.each do |content|
       expect(service.needs_improvement).not_to include content.upcase
     end
   end
@@ -81,7 +86,11 @@ describe SubmitChallengeReview do
   end
 
   it 'posts a comment to the relevant pull request on GitHub' do
-
+    expect(github_client).to receive(:add_comment) do |repo, pr_number|
+      expect(repo).to eq "makersacademy/test_challenge"
+      expect(pr_number).to eq 1234
+    end
+    service.run
   end
 
 

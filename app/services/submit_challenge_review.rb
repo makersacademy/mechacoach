@@ -19,9 +19,7 @@ class SubmitChallengeReview
   end
 
   def run
-    puts good_parts
-    puts needs_improvement
-    puts create_review_comment
+    github_client.add_comment "makersacademy/#{name}", pull_request.number, create_review_comment
   end
 
   def good_parts
@@ -45,7 +43,7 @@ class SubmitChallengeReview
   private
 
   def create_review_comment
-    renderer = ERB.new(File.read('./app/views/challenge_review.erb'))
+    renderer = ERB.new(File.read('./app/views/challenge_review.erb'), nil, '-')
     renderer.result binding
   end
 
@@ -68,6 +66,16 @@ class SubmitChallengeReview
   def session
     @session ||= GoogleDrive.saved_session("./stored_token.json", nil, ENV['GAPI_CLIENT_ID'], ENV['GAPI_CLIENT_SECRET'])
   end
+
+  def pull_request
+    pull_requests = github_client.pull_requests "makersacademy/#{name}", state: 'open', per_page: 100
+    pull_requests.find {|pr| pr.user.login.downcase == github_user.downcase }
+  end
+
+  def github_client
+    @github ||= Octokit::Client.new(login: ENV['GITHUB_USERNAME'], password: ENV['GITHUB_PASSWORD'])
+  end
+
 
   class << self
 

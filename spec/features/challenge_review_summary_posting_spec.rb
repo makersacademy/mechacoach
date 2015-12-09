@@ -10,8 +10,6 @@ describe 'challenge review summary posting' do
   end
 
   FORM_DATA = {
-    document_id: "google_doc_id",
-    worksheet_id: "google_sheet_id",
     content: {
       appropriateuseofdependencyinjection: "The Twilio dependency can be injected appropriately",
       designforsingleresponsibilityprinciple: "The design has at least `Takeaway` and `Order` classes or equivalent",

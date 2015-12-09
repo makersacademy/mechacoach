@@ -73,7 +73,7 @@ class SubmitChallengeReview
   end
 
   def github_client
-    @github ||= Octokit::Client.new(login: ENV['GITHUB_USERNAME'], password: ENV['GITHUB_PASSWORD'])
+    @github ||= Octokit::Client.new(client_id: ENV['GITHUB_CLIENT_ID'], client_secret: ENV['GITHUB_CLIENT_SECRET'])
   end
 
 

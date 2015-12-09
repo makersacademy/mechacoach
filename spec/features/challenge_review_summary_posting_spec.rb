@@ -1,7 +1,6 @@
 describe 'challenge review summary posting' do
   it 'calls the submit challenge review service with the relevant params' do
     expect(SubmitChallengeReview).to receive(:with) do |options|
-      puts options
       expect(options[:content]).to eq FORM_DATA[:content]
       expect(options[:name]).to eq "challenge_name"
       expect(options[:github_user]).to eq "github_user"

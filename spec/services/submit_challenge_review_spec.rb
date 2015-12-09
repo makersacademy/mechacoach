@@ -110,7 +110,7 @@ describe SubmitChallengeReview do
   }
 
   META =  {
-    'timestamp' => "10/23/2015 16 =>07 =>09",
+    'timestamp' => "10/23/2015 16:07:09",
     'whatistherevieweesgithubusername' => "sarahkristinepedersen",
     'whosechallengeareyoureviewing' => "Sara",
     'yourname' => "Jongmin Kim",

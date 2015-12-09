@@ -75,6 +75,14 @@ class SubmitChallengeReview
   end
 
   class << self
+    def convert_form_data(data)
+      data.reduce({}) do |hash, pair|
+        key = pair[0]
+        value = pair[1]
+        hash[key.sub('Gsx$', '')] = value if key.start_with? 'Gsx$'
+        hash
+      end
+    end
 
     def document_id(name)
       config[name]['document_id']

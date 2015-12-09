@@ -71,9 +71,8 @@ class SubmitChallengeReview
   end
 
   def github_client
-    @github ||= Octokit::Client.new(login: ENV['GITHUB_USERNAME'], password: ENV['GITHUB_PASSWORD'])
+    @github ||= Octokit::Client.new(access_token: ENV['GITHUB_ACCESS_TOKEN'])
   end
-
 
   class << self
 

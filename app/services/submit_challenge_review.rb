@@ -9,26 +9,60 @@ class SubmitChallengeReview
     service.run
   end
 
-  attr_reader :content, :name, :github_user
+  attr_reader :content, :name, :github_user, :reviewer
 
   def initialize(content:, name:, github_user:)
     @content = content
     @name = name
     @github_user = github_user
+    @reviewer = @content['yourname']
   end
 
   def run
-    worksheet.rows.first
+    puts good_parts
+    puts needs_improvement
+    puts create_review_comment
+  end
+
+  def good_parts
+    good_headings = headings.keys.select { |key| content[key] && !content[key].empty? }
+    good_headings.map { |key| content[key] }
+  end
+
+  def needs_improvement
+    ni_headings = headings.keys.reject { |key| content[key] && !content[key].empty? }
+    ni_headings.map { |key| headings[key] }
+  end
+
+  def has_additional_comments?
+    content['anyadditionalcommentsonthecodeyoureviewed'] && !content['anyadditionalcommentsonthecodeyoureviewed'].empty?
+  end
+
+  def additional_comments
+    content['anyadditionalcommentsonthecodeyoureviewed']
   end
 
   private
 
+  def create_review_comment
+    renderer = ERB.new(File.read('./app/views/challenge_review.erb'))
+    renderer.result binding
+  end
+
+  def headings
+    @headings ||= worksheet.rows.first.reduce({}) do |hash, heading|
+      key = heading.downcase.gsub(/\W/, '')
+      hash[key] = heading unless IGNORE_HEADERS.include?(key.to_sym)
+      hash
+    end
+  end
+
   def worksheet
-    document.worksheet_by_gid(SubmitChallengeReview.worksheet_id(name))
+    @worksheet ||= document.worksheet_by_gid(SubmitChallengeReview.worksheet_id(name))
   end
 
   def document
-    session.spreadsheet_by_key(SubmitChallengeReview.document_id(name))
+    @document ||= session.spreadsheet_by_key(SubmitChallengeReview.document_id(name))
   end
 
   def session
@@ -52,5 +86,17 @@ class SubmitChallengeReview
     end
 
   end
+
+  IGNORE_HEADERS = [
+    :whatistherevieweesgithubusername,
+    :yourname,
+    :whosechallengeareyoureviewing,
+    :didyoufindthisformusefulincompletingthereview,
+    :anyadditionalcommentsonthecodeyoureviewed,
+    :timestamp,
+    :features,
+    :bonusfeatures,
+    :adddetailsofyouralternateapproachtothereviewifyouskippedtherest
+  ]
 
 end

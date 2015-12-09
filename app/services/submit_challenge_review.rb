@@ -3,8 +3,6 @@ require "google_drive"
 
 class SubmitChallengeReview
   def self.with(content:, name:, github_user:)
-    # 1. identify the pull request to post to
-    # 2. pull down the correct headers
     service = SubmitChallengeReview.new(content: content, name: name, github_user: github_user)
     service.run
   end
@@ -76,7 +74,6 @@ class SubmitChallengeReview
     @github ||= Octokit::Client.new(client_id: ENV['GITHUB_CLIENT_ID'], client_secret: ENV['GITHUB_CLIENT_SECRET'])
   end
 
-
   class << self
 
     def document_id(name)
@@ -90,7 +87,7 @@ class SubmitChallengeReview
     private
 
     def config
-      @config ||= YAML.load(File.open('./submit_challenge_review.config'))
+      @config ||= YAML.load(File.open('./config/submit_challenge_review.config'))
     end
 
   end

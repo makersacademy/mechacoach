@@ -48,7 +48,8 @@ class MechacoachServer < Sinatra::Base
 
   #  /challenges/bowling_challenge/reviews/tansaku
   post '/challenges/:name/reviews/:github_user' do
-    SubmitChallengeReview.with(content: params[:content], name: params[:name], github_user: params[:github_user])
+    content = Hash[params['content'].split(/,\s(?=\w+\:)/).map{|s| s.split(': ')}]
+    SubmitChallengeReview.with(content: content, name: params[:name], github_user: params[:github_user])
     200
   end
 end

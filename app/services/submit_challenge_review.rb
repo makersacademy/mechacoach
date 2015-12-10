@@ -10,7 +10,7 @@ class SubmitChallengeReview
   attr_reader :content, :name, :github_user, :reviewer
 
   def initialize(content:, name:, github_user:)
-    @content = Hash[content.split(/,\s(?=\w+\:)/).map{|s| s.split(': ')}]
+    @content = content
     @name = name
     @github_user = github_user
     @reviewer = @content['yourname']

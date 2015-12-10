@@ -46,7 +46,6 @@ describe SubmitChallengeReview do
 
   it 'lists the good parts' do
     good_parts = REVIEW.values.reject { |content| content.empty? }
-    require 'byebug'; byebug
     good_parts.each do |content|
       expect(service.good_parts).to include content
     end

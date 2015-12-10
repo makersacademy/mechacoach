@@ -20,4 +20,6 @@ gem 'google_drive'
 
 group :test do
   gem 'byebug'
+  gem 'webmock'
+  gem 'vcr'
 end

@@ -1,14 +1,22 @@
+ENV['RACK_ENV'] = 'test'
+
+require_relative '../app/server'
 require 'load_env'
 require 'rspec'
 require 'rack/test'
 require 'capybara/rspec'
 require 'capybara/json'
-require_relative '../app/server'
-
-ENV['RACK_ENV'] = 'test'
 
 # Add Sinatra integration using Capybara
 Capybara.app = MechacoachServer
+
+require 'vcr'
+require 'webmock/rspec'
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.hook_into :webmock # or :fakeweb
+end
 
 # Configure RSpec
 RSpec.configure do |config|

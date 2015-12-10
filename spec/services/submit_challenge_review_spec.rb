@@ -17,7 +17,6 @@ describe SubmitChallengeReview do
     allow(pull_request).to receive_message_chain('user.login.downcase').and_return('test_user')
   end
 
-
   describe '::with' do
     it 'passes arguments to new instance' do
       expect(SubmitChallengeReview).to receive(:new) do |options|
@@ -47,6 +46,7 @@ describe SubmitChallengeReview do
 
   it 'lists the good parts' do
     good_parts = REVIEW.values.reject { |content| content.empty? }
+    require 'byebug'; byebug
     good_parts.each do |content|
       expect(service.good_parts).to include content
     end

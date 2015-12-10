@@ -10,13 +10,14 @@ class SubmitChallengeReview
   attr_reader :content, :name, :github_user, :reviewer
 
   def initialize(content:, name:, github_user:)
-    @content = content
+    @content = Hash[content.split(/,\s(?=\w+\:)/).map{|s| s.split(': ')}]
     @name = name
     @github_user = github_user
     @reviewer = @content['yourname']
   end
 
   def run
+    # require 'byebug'; byebug
     github_client.add_comment "makersacademy/#{name}", pull_request.number, create_review_comment
   end
 
@@ -75,15 +76,6 @@ class SubmitChallengeReview
   end
 
   class << self
-    def convert_form_data(data)
-      data.reduce({}) do |hash, pair|
-        key = pair[0]
-        value = pair[1]
-        hash[key.sub('Gsx$', '')] = value if key.start_with? 'Gsx$'
-        hash
-      end
-    end
-
     def document_id(name)
       config[name]['document_id']
     end

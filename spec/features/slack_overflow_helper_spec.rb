@@ -20,7 +20,7 @@ describe 'posting to Slack Overflow' do
     end
 
     it 'listens on the webhook' do
-      expect(ParseGithub).to receive(:with)
+      expect(ParseGithub).to receive(:with).and_return(95)
       post '/new-slack-overflow-issue', example_issue_opening_payload
     end
 

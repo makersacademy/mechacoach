@@ -41,3 +41,7 @@ build/
 
 client_secret.json
 google_token.json
+
+gapi_test.rb
+stored_token_tansaku.json
+stored_token_working.json

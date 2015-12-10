@@ -6,23 +6,27 @@ describe 'loading pairs via GUI' do
 
   context 'with a non-existent cohort name' do
     it 'asks the user to check the cohort name' do
-      visit '/pairs/load'
-      fill_in('cohort', with: 'october 2015')
-      attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
-      click_button 'Submit'
-      expect(page).to have_content "'#october 2015' is not a student slack channel. Check the cohort name and try again."
+      VCR.use_cassette('check_missing_cohort_channel_name') do
+        visit '/pairs/load'
+        fill_in('cohort', with: 'october 2015')
+        attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
+        click_button 'Submit'
+        expect(page).to have_content "'#october 2015' is not a student slack channel. Check the cohort name and try again."
+      end
     end
   end
 
   context 'with an existent cohort name and a well-formed pair file' do
     it 'commits the pairs correctly' do
-      Redis.new.set('october2015_pairs', nil)
-      visit '/pairs/load'
-      fill_in('cohort', with: 'october2015')
-      attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
-      click_button 'Submit'
-      expect(page).to have_content 'Your pairs (october2015) were loaded successfully.'
-      expect(PairAssignments.find('october2015')).to be
+      VCR.use_cassette('check_cohort_channel_name') do
+        Redis.new.set('october2015_pairs', nil)
+        visit '/pairs/load'
+        fill_in('cohort', with: 'october2015')
+        attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
+        click_button 'Submit'
+        expect(page).to have_content 'Your pairs (october2015) were loaded successfully.'
+        expect(PairAssignments.find('october2015')).to be
+      end
     end
   end
 end

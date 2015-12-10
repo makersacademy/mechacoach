@@ -17,24 +17,21 @@ describe 'challenge review summary posting' do
     end
   end
 
-  FORM_DATA = {
-    'Gsx$appropriateuseofdependencyinjection' => "The Twilio dependency can be injected appropriately",
-    'Gsx$designforsingleresponsibilityprinciple' => "The design has at least `Takeaway` and `Order` classes or equivalent",
-    'Gsx$didyoufindthisformusefulincompletingthereview' => "I find the review introduction page very useful and helpful. If juniors have access to this information after each challenge, they'd give a better code review when they're seniors.",
-    'Gsx$ensurethatallgemsbeingusedareingemfile' => "Required gems (i.e. twilio-ruby) are listed in Gemfile",
-    'Gsx$explicittestsforeveryelementofthepublicinterface' => "All public interface elements are tested",
-    'Gsx$explorethelanguageforsolutionstocommonproblems' => "The solution makes good use of the Ruby language, e.g., Hash.new(0) is used to simplify management of counts",
-    'Gsx$lawofdemeter' => "The Law of Demeter is respected in the code base",
-    'Gsx$openclosedprinciple' => "The open closed principle has been respected, e.g. food items are not hard coded into restaurant",
-    'Gsx$personaldetailsandtokensongithub' => "ENV vars have been used in place of sensitive data",
-    'Gsx$separationofconcerns' => "Business and presentation logic has been cleanly separated",
-    'Gsx$stubbingthetwilioapi' => "The Twilio API is stubbed appropriately",
-    'Gsx$testsshouldtestrealbehavioursnotstubs' => "All tests test real behaviour and not stubs",
-    'Gsx$timestamp' => "10/23/2015 16:07:09",
-    'Gsx$useconsistentstylesandindentation' => "The code follows the Ruby style and coding conventions",
-    'Gsx$whatistherevieweesgithubusername' => "sarahkristinepedersen",
-    'Gsx$whosechallengeareyoureviewing' => "Sara",
-    'Gsx$yourname' => "Jongmin Kim",
-    'content' => 'blah blah blah'
+  FORM_DATA =
+    "appropriateuseofdependencyinjection: The Twilio dependency can be injected appropriately, designforsingleresponsibilityprinciple: The design has at least `Takeaway` and `Order` classes or equivalent, didyoufindthisformusefulincompletingthereview: I find the review introduction page very useful and helpful. If juniors have access to this information after each challenge, they'd give a better code review when they're seniors.,
+    ensurethatallgemsbeingusedareingemfile: Required gems (i.e. twilio-ruby) are listed in Gemfile,
+    explicittestsforeveryelementofthepublicinterface: All public interface elements are tested,
+    explorethelanguageforsolutionstocommonproblems: The solution makes good use of the Ruby language, e.g., Hash.new(0) is used to simplify management of counts,
+    lawofdemeter: The Law of Demeter is respected in the code base,
+    openclosedprinciple: The open closed principle has been respected, e.g. food items are not hard coded into restaurant,
+    personaldetailsandtokensongithub: ENV vars have been used in place of sensitive data,
+    separationofconcerns: Business and presentation logic has been cleanly separated,
+    stubbingthetwilioapi: The Twilio API is stubbed appropriately,
+    testsshouldtestrealbehavioursnotstubs: All tests test real behaviour and not stubs,
+    timestamp: 10/23/2015 16:07:09,
+    useconsistentstylesandindentation: The code follows the Ruby style and coding conventions,
+    whatistherevieweesgithubusername: sarahkristinepedersen,
+    whosechallengeareyoureviewing: Sara,
+    yourname: Jongmin Kim"
   }
 end

@@ -1,7 +1,7 @@
 describe MechacoachServer do
   it 'sanitizes text content from zapier into a hash' do
     content = MechacoachServer.sanitize_zap_content ZAP_CONTENT
-    expect(content).keys.to include 'inconsistentroutingandroutenaming'
+    expect(content.keys).to include 'inconsistentroutingandroutenaming'
   end
 
   ZAP_CONTENT = <<-ZAP

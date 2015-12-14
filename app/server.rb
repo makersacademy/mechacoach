@@ -48,12 +48,12 @@ class MechacoachServer < Sinatra::Base
 
   #  /challenges/bowling_challenge/reviews/tansaku
   post '/challenges/:name/reviews/:github_user' do
-    content = sanitize_zap_content(params[:content])
+    content = MechacoachServer.sanitize_zap_content(params[:content])
     SubmitChallengeReview.with(content: content, name: params[:name], github_user: params[:github_user])
     200
   end
 
   def self.sanitize_zap_content(content)
-    Hash[content.split(/,\s(?=\w+\:)/).map{|s| s.split(': ')}]
+    Hash[content.split(/,\s(?=\w+\:)/).map{|s| s.split(': ',2)}]
   end
 end

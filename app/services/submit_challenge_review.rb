@@ -7,43 +7,24 @@ class SubmitChallengeReview
     service.run
   end
 
-  attr_reader :content, :name, :github_user, :reviewer
-
   def initialize(content:, name:, github_user:)
-    @content = content
     @name = name
+    @content = content
     @github_user = github_user
-    @reviewer = @content['yourname']
   end
 
   def run
-    # require 'byebug'; byebug
     github_client.add_comment "makersacademy/#{name}", pull_request.number, create_review_comment
-  end
-
-  def good_parts
-    good_headings = headings.keys.select { |key| content[key] && !content[key].empty? }
-    good_headings.map { |key| content[key] }
-  end
-
-  def needs_improvement
-    ni_headings = headings.keys.reject { |key| content[key] && !content[key].empty? }
-    ni_headings.map { |key| headings[key] }
-  end
-
-  def has_additional_comments?
-    content['anyadditionalcommentsonthecodeyoureviewed'] && !content['anyadditionalcommentsonthecodeyoureviewed'].empty?
-  end
-
-  def additional_comments
-    content['anyadditionalcommentsonthecodeyoureviewed']
   end
 
   private
 
+  attr_reader :content, :name, :github_user
+
   def create_review_comment
+    review_summary = ReviewSummary.new(content: content, name: name, github_user: github_user, headings: headings)
     renderer = ERB.new(File.read('./app/views/challenge_review.erb'), nil, '-')
-    renderer.result binding
+    renderer.result review_summary.get_binding
   end
 
   def headings

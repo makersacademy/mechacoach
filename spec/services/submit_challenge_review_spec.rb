@@ -36,49 +36,6 @@ describe SubmitChallengeReview do
     end
   end
 
-  it 'provides the name of the challenge' do
-    expect(service.name).to eq 'test_challenge'
-  end
-
-  it 'provides the reviewer of the challenge' do
-    expect(service.reviewer).to eq 'Jongmin Kim'
-  end
-
-  it 'lists the good parts' do
-    good_parts = REVIEW.values.reject { |content| content.empty? }
-    good_parts.each do |content|
-      expect(service.good_parts).to include content
-    end
-  end
-
-  it 'does not include needs improvement in good parts' do
-    needs_improvement = REVIEW.select { |key, content| content.empty? }.map { |key, content| key.upcase }
-    needs_improvement.each do |content|
-      expect(service.good_parts).not_to include content
-    end
-  end
-
-  it 'lists the parts needing improvement' do
-    # the needs_improvement headings will come from the google doc.
-    # the mock of this just returns the uppercase of the key to prove it is called.
-    needs_improvement = REVIEW.select { |key, content| content.empty? }.map { |key, content| key.upcase }
-    needs_improvement.each do |content|
-      expect(service.needs_improvement).to include content
-    end
-  end
-
-  it 'does not include good parts in needing improvement' do
-    good_parts = REVIEW.values.reject { |content| content.empty? }
-    good_parts.each do |content|
-      expect(service.needs_improvement).not_to include content.upcase
-    end
-  end
-
-  it 'knows if there are additional comments' do
-    expect(service).to have_additional_comments
-  end
-
-
   it 'fetches the worksheet from google' do
     expect(session).to receive(:spreadsheet_by_key).with('google_doc_id')
     service.run

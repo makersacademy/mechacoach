@@ -5,8 +5,10 @@ require './lib/mechacoach'
 require './lib/find_channel'
 require './lib/parse_pair_file'
 require './app/models/pair_assignments'
+require './app/models/review_summary'
 require './app/services/release_pairs'
 require './app/services/load_pairs'
+require './app/services/submit_challenge_review'
 
 class MechacoachServer < Sinatra::Base
   enable :sessions
@@ -42,6 +44,13 @@ class MechacoachServer < Sinatra::Base
     issue_number = ParseGithub.with(payload)
     handler = Mechacoach.new
     handler.slack_overflow_issue(issue_number)
+    200
+  end
+
+  #  /challenges/bowling_challenge/reviews/tansaku
+  post '/challenges/:name/reviews/:github_user' do
+    content = Hash[params['content'].split(/,\s(?=\w+\:)/).map{|s| s.split(': ')}]
+    SubmitChallengeReview.with(content: content, name: params[:name], github_user: params[:github_user])
     200
   end
 end

@@ -24,14 +24,14 @@ describe SubmitChallengeReview do
   end
 
   describe '::with' do
+    let(:service) {double :service, run: true}
+
     it 'passes arguments to new instance' do
       expect(SubmitChallengeReview).to receive(:new) do |options|
         expect(options[:content]).to eq content
         expect(options[:name]).to eq 'test_challenge'
         expect(options[:github_user]).to eq 'test_user'
-      end.and_call_original
-
-      allow_any_instance_of(SubmitChallengeReview).to receive(:run)
+      end.and_return(service)
 
       SubmitChallengeReview.with(content: content, name: 'test_challenge', github_user: 'test_user')
     end

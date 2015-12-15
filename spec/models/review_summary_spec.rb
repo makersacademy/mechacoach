@@ -20,7 +20,6 @@ describe ReviewSummary do
 
   it 'lists the good parts' do
     good_parts = review.values.reject { |content| content.empty? }
-    # require 'byebug' ; byebug
     good_parts.each do |content|
       expect(summary.good_parts).to include content
     end

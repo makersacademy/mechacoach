@@ -24,13 +24,26 @@ Each Google Calendar occurrence will trigger a Slack notification of the next pa
 
 ### Distributing Code Review Summaries
 
-1. Create a Zap that links a google form to Mechacoach web hook, e.g. https://zapier.com/app/editor-original/6284227
+1. Create a Zap that links the google form responses sheet to Mechacoach web hook, e.g. https://zapier.com/app/editor-original/6284227
 2. Update `config/submit_challenge_review.config` to include relevant document and sheet id from google form responses, and name of repo, e.g.
 
 ```
 rps-challenge:
   document_id: 1iUOogNEaOrD1VjZd-1Zqf_xRDZtdIvYwez91eQKVRH0
   worksheet_id: 299100708
+```
+
+Ensure the sheet column headings for the meta information match:
+```
+whatistherevieweesgithubusername,
+yourname,
+whosechallengeareyoureviewing,
+didyoufindthisformusefulincompletingthereview,
+anyadditionalcommentsonthecodeyoureviewed,
+timestamp,
+features,
+bonusfeatures,
+adddetailsofyouralternateapproachtothereviewifyouskippedtherest
 ```
 
 ## Getting Started

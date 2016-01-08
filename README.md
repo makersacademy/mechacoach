@@ -25,6 +25,8 @@ Each Google Calendar occurrence will trigger a Slack notification of the next pa
 ### Distributing Code Review Summaries
 
 1. Create a Zap that links the google form responses sheet to Mechacoach web hook, e.g. https://zapier.com/app/editor-original/6284227
+  - it helps to add dev@makersacademy.com as a collaborator to the spreadsheet so that it appears at the top of the list in the zap
+  - don't forget to update the mechacoach URL
 2. Update `config/submit_challenge_review.config` to include relevant document and sheet id from google form responses, and name of repo, e.g.
 
 ```
@@ -34,6 +36,7 @@ rps-challenge:
 ```
 
 Ensure the sheet column headings for the meta information match:
+
 ```
 whatistherevieweesgithubusername,
 yourname,
@@ -46,7 +49,7 @@ bonusfeatures,
 adddetailsofyouralternateapproachtothereviewifyouskippedtherest
 ```
 
-## Getting Started
+## Getting Set Up
 
 - Fill a `.env` file with delicious credentials from LastPass, I guess. Mechacoach uses [Dotenv](https://github.com/bkeepers/dotenv) for secret stuff, like webhooks.
 - If you want to test pairing functionality, make sure you've run `redis-server`.

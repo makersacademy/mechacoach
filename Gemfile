@@ -18,6 +18,8 @@ gem 'redis'
 
 gem 'google_drive'
 
+gem 'newrelic_rpm'
+
 group :test do
   gem 'byebug'
   gem 'webmock'

@@ -49,8 +49,11 @@ class MechacoachServer < Sinatra::Base
 
   #  /challenges/bowling_challenge/reviews/tansaku
   post '/challenges/:name/reviews/:github_user' do
+    p "Received Challenge Review for #{params[:github_user]}"
     content = MechacoachServer.sanitize_zap_content(params[:content])
+    p "Zap content sanitised"
     SubmitChallengeReview.with(content: content, name: params[:name], github_user: params[:github_user])
+    p "Challenge Review submitted"
     200
   end
 

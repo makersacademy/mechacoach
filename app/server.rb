@@ -1,5 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/flash'
+require 'newrelic_rpm'
+
 require './lib/parse_github'
 require './lib/mechacoach'
 require './lib/find_channel'

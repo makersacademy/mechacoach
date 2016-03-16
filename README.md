@@ -1,5 +1,7 @@
 # Mechacoach
 
+![Mechacoach as a Braintree entity](docs_images/mechacoach.gif)
+
 Co-locating all the automated coach tasks. Want to automate a task? Extend Mechacoach!
 
 ## Why the thing

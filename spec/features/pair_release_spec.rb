@@ -15,7 +15,7 @@ feature 'Pair release slack notification' do
 
     before do
       PairAssignments.repo.set("test2016_pairs", assignments_source.to_json)
-      PairAssignments.repo.set("test2016_index", nil)
+      PairAssignments.repo.set("test2016_index", 0)
     end
 
     scenario 'request to "/pairs/release" releases a pair assignment to slack' do
@@ -48,7 +48,7 @@ feature 'Pair release slack notification' do
 
     before do
       PairAssignments.repo.set("test2017_pairs", assignments_source.to_json)
-      PairAssignments.repo.set("test2017_index", nil)
+      PairAssignments.repo.set("test2017_index", 0)
     end
 
     scenario 'requests to "/pairs/release" releases a pair assignment to slack' do

@@ -20,6 +20,7 @@ describe PairAssignments do
   end
 
   it 'creates entries in the repo' do
+    allow(repo).to receive(:set).with("test2015_index", 0)
     expect(repo).to receive(:set).with("test2015_pairs", assignments_json)
     PairAssignments.create(:test2015, assignments_source)
   end

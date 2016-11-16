@@ -27,6 +27,12 @@ Mechacoach will automatically post pair assignments to the student cohort Slack 
 
 Each Google Calendar occurrence will trigger a Slack notification of the next pair assignment in the sequence, at the event start time.  Once all of the pair assignments have been exhausted, Mechacoach will cycle back to the first.
 
+If for some reason you want to trigger a new, unscheduled pair assignment to post to slack, you can use the curl from the command line as follows (substitute cohort-slack-channel with the exact students slack channel):
+
+```
+curl -X POST -F 'cohort=cohort-slack-channel' http://mechacoach.herokuapp.com/pairs/release
+```
+
 ### Distributing Code Review Summaries
 
 1. Create a Zap that links the google form responses sheet to Mechacoach web hook, e.g. https://zapier.com/app/editor-original/6284227

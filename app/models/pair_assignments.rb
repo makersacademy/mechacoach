@@ -1,23 +1,23 @@
 class PairAssignments
-  def self.repo
-    Redis.new
-  end
+
+  INDEX_KEY = ->(cohort){ "#{cohort}_index" }
+  PAIRS_KEY = ->(cohort){ "#{cohort}_pairs" }
 
   class << self
+
+    def repo
+      Redis.new
+    end
+
     def find(cohort)
-      data = repo.get(pairs_key(cohort))
+      data = repo.get(PAIRS_KEY.call(cohort))
       return nil unless data
       PairAssignments.new(cohort, JSON.parse(data))
     end
 
     def create(cohort, assignments)
-      repo.set(pairs_key(cohort), assignments.to_json)
-    end
-
-    private
-
-    def pairs_key(cohort)
-      "#{cohort}_pairs"
+      repo.set(PAIRS_KEY.call(cohort), assignments.to_json)
+      repo.set(INDEX_KEY.call(cohort), 0)
     end
   end
 
@@ -38,7 +38,7 @@ class PairAssignments
   private
 
   def index_key
-    "#{cohort}_index"
+    INDEX_KEY.call(cohort)
   end
 
   def index

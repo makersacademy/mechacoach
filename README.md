@@ -41,6 +41,10 @@ If for some reason you want to trigger a new, unscheduled pair assignment to pos
 curl -X POST -F 'cohort=cohort-slack-channel' http://mechacoach.herokuapp.com/pairs/release
 ```
 
+### Setting up slack
+
+Mechacoach requires an integrated webhook to be set up in slack, via the path https://[your-team].slack.com/apps => Browse Apps => Custom Integrations => Incoming WebHooks. Generate the webhook and copy the generated path into heroku config vars.
+
 ### Distributing Code Review Summaries
 
 1. Create a Zap that links the google form responses sheet to Mechacoach web hook, e.g. https://zapier.com/app/editor-original/6284227

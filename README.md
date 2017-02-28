@@ -33,7 +33,9 @@ $ makers generate_pairs [file] # [file] being the .txt file you made in step 1
 
 4. Create a notification schedule in the [pair assignment Google Calendar](https://www.google.com/calendar/embed?src=makersacademy.com_evddbhj972183cdquke82v10o0%40group.calendar.google.com&ctz=Europe/London).  Use a recurring event(s) to generate the schedule (you can delete exceptions for bank holidays etc.).  The event summary must be the exact cohort Slack channel name.
 
-Each Google Calendar occurrence will trigger a Slack notification of the next pair assignment in the sequence, at the event start time.  Once all of the pair assignments have been exhausted, Mechacoach will cycle back to the first.
+Zapier tracks the Google Calendar.  Fifteen minutes before each calendar event, Zapier makes a POST request to `/pairs/release`.  This posts the next pair assignments in the sequence to the cohort Slack channel.
+
+Once all of the pair assignments have been exhausted, Mechacoach will cycle back to the first.
 
 If for some reason you want to trigger a new, unscheduled pair assignment to post to slack, you can use the curl from the command line as follows (substitute cohort-slack-channel with the exact students slack channel):
 

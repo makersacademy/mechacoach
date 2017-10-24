@@ -37,13 +37,29 @@ Zapier tracks the Google Calendar.  Fifteen minutes before each calendar event, 
 
 Once all of the pair assignments have been exhausted, Mechacoach will cycle back to the first.
 
+##### Triggering pair posting manually
+
 If for some reason you want to trigger a new, unscheduled pair assignment to post to slack, you can use the curl from the command line as follows (substitute cohort-slack-channel with the exact students slack channel):
 
 ```
 curl -X POST -F 'cohort=cohort-slack-channel' http://mechacoach.herokuapp.com/pairs/release
 ```
 
-### Setting up slack
+##### Manually changing the pairs
+
+If you want to change the pairs – for instance, if a student has asked not to work with another student – you will need to connect to Mechacoach's Redis data store via the command-line, copy the existing data, change it, and then re-submit it to Mechacoach via the [pair loader](http://mechacoach.herokuapp.com/pairs/load). Here are the instructions:
+
+1. Install heroku-cli and use it to install heroku-redis, with `heroku plugins:install heroku-redis`.
+2. Connect to Mechacoach Redis with `heroku redis-cli`. If you see an error due to a missing app name, add `--app mechacoach` to the command.
+3. Redis will ask you to type `mechacoach` to be able to access the data. Do that.
+4. Fetch the pairs from the Redis data store using the command `get "<cohort-slack-channel>_pairs"`. For instance, if the cohort Slack channel is `september2017`, then you would type `get "september2017_pairs"`.
+5. Copy the output, which should be an array of arrays (of arrays), to a text editor.
+6. Swap any pairs you see fit. **Avoid deleting pairs**, unless you have to for some reason.
+7. Save the file with the suffix `.txt`, head to the [pair loader](http://mechacoach.herokuapp.com/pairs/load) and upload the file, with the cohort Slack channel, as you did before.
+8. Verify the new pairs in the Redis CLI with the command `get "<cohort-slack-channel>_pairs"`. You should see your new pairs in the place of the old ones.
+9. Exit the Redis CLI. You're done!
+
+### Setting up Slack
 
 Mechacoach requires an integrated webhook to be set up in slack, via the path https://[your-team].slack.com/apps => Browse Apps => Custom Integrations => Incoming WebHooks. Generate the webhook and copy the generated path into heroku config vars.
 

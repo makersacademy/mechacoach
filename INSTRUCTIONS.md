@@ -35,7 +35,7 @@ curl -X POST -F 'cohort=cohort-slack-channel' http://mechacoach.herokuapp.com/pa
 If you want to change the pairs – for instance, if a student has asked not to work with another student – you will need to connect to Mechacoach's Redis data store via the command-line, copy the existing data, change it, and then re-submit it to Mechacoach via the [pair loader](http://mechacoach.herokuapp.com/pairs/load). Here are the instructions:
 
 1. Install heroku-cli and use it to install heroku-redis, with `heroku plugins:install heroku-redis`.
-2. Connect to Mechacoach Redis with `heroku redis-cli`. If you see an error due to a missing app name, add `--app mechacoach` to the command.
+2. Connect to Mechacoach Redis with `heroku redis:cli`. If you see an error due to a missing app name, add `--app mechacoach` to the command.
 3. Redis will ask you to type `mechacoach` to be able to access the data. Do that.
 4. Fetch the pairs from the Redis data store using the command `get "<cohort-slack-channel>_pairs"`. For instance, if the cohort Slack channel is `september2017`, then you would type `get "september2017_pairs"`.
 5. Copy the output, which should be an array of arrays (of arrays), to a text editor.

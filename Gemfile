@@ -24,4 +24,5 @@ group :test do
   gem 'byebug'
   gem 'webmock'
   gem 'vcr'
+  gem 'pry'
 end

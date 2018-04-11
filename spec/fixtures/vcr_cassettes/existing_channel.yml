@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://hooks.slack.com/services/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
+    uri: https://hooks.slack.com/services/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
     body:
       encoding: US-ASCII
-      string: payload=%7B%22channel%22%3A%22%23october2015%22%2C%22username%22%3A%22mechacoach%22%2C%22icon_emoji%22%3A%22%3Atophat%3A%22%2C%22text%22%3A%22%22%7D
+      string: payload=%7B%22channel%22%3A%22%23testing%22%2C%22username%22%3A%22mechacoach%22%2C%22icon_emoji%22%3A%22%3Atophat%3A%22%2C%22text%22%3A%22%22%7D
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -20,70 +20,37 @@ http_interactions:
       code: 500
       message: Server Error
     headers:
-      Access-Control-Allow-Origin:
-      - "*"
-      Content-Security-Policy:
-      - referrer no-referrer;
       Content-Type:
       - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
       Date:
-      - Thu, 10 Dec 2015 12:36:10 GMT
+      - Wed, 11 Apr 2018 13:08:33 GMT
       Server:
       - Apache
+      X-Slack-Backend:
+      - h
+      Referrer-Policy:
+      - no-referrer
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Frame-Options:
       - SAMEORIGIN
-      Content-Length:
-      - '17'
-      Connection:
-      - keep-alive
-    body:
-      encoding: UTF-8
-      string: No text specified
-    http_version: 
-  recorded_at: Thu, 10 Dec 2015 12:36:10 GMT
-- request:
-    method: post
-    uri: https://hooks.slack.com/services/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
-    body:
-      encoding: US-ASCII
-      string: payload=%7B%22channel%22%3A%22%23october2015%22%2C%22username%22%3A%22mechacoach%22%2C%22icon_emoji%22%3A%22%3Atophat%3A%22%2C%22text%22%3A%22%22%7D
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 500
-      message: Server Error
-    headers:
       Access-Control-Allow-Origin:
       - "*"
-      Content-Security-Policy:
-      - referrer no-referrer;
-      Content-Type:
-      - text/html
-      Date:
-      - Thu, 10 Dec 2015 12:36:10 GMT
-      Server:
-      - Apache
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-      X-Frame-Options:
-      - SAMEORIGIN
-      Content-Length:
-      - '17'
-      Connection:
-      - keep-alive
+      X-Via:
+      - haproxy-www-rju6
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 a59248a3f35122c2ec3af07e422e20d5.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - G8zQLaZxt-PVPCigMhHy_HNK_g8PRzTbnJh6X7FzaNQQAZCbJ-srkw==
     body:
       encoding: UTF-8
-      string: No text specified
+      string: missing_text_or_fallback_or_attachments
     http_version: 
-  recorded_at: Thu, 10 Dec 2015 12:36:11 GMT
+  recorded_at: Wed, 11 Apr 2018 13:08:34 GMT
 recorded_with: VCR 2.9.3

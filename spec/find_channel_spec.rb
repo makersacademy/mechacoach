@@ -22,7 +22,7 @@ describe FindChannel do
   private
 
   def existing_channel
-    'october2015'
+    'testing'
   end
 
   def non_existent_channel

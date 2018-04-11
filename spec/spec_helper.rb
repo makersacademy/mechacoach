@@ -10,6 +10,7 @@ require 'capybara/json'
 # Add Sinatra integration using Capybara
 Capybara.app = MechacoachServer
 
+require 'pry'
 require 'vcr'
 require 'webmock/rspec'
 

@@ -26,11 +26,12 @@ describe SlackNotifier do
   end
 
   describe '#notify' do
+    before do
+      allow(slack_client).to receive(:ping).and_return(response)
+    end
+
     context 'well-formed notification (channel and message)' do
       let(:response) { double :http_response, { code: '200' }}
-      before do
-        allow(slack_client).to receive(:ping).and_return(response)
-      end
 
       it 'sends the notification' do
         expect(subject.notify).to eq :notified
@@ -44,24 +45,26 @@ describe SlackNotifier do
     end
 
     context 'poorly-formed notification (channel does not exist)' do
-      let(:response) { double :http_internal_server_error, { code: '500', body: 'Invalid channel specified' }}
-      before do
-        allow(slack_client).to receive(:ping).and_return(response)
-      end
+      let(:response) { double :http_resource_not_found, { code: '404', body: 'Channel not found' }}
 
-      it 'returns an error symbol' do
-        expect(subject.notify).to eq 'Invalid channel specified'
+      it 'throws ChannelNotFoundError' do
+        expect { subject.notify }.to raise_error '404: Channel not found'
       end
     end
 
     context 'poorly-formed notification (message empty)' do
       let(:response) { double :http_internal_server_error, { code: '500', body: 'No text specified' }}
-      before do
-        allow(slack_client).to receive(:ping).and_return(response)
-      end
 
-      it 'returns an error symbol' do
-        expect(subject.notify).to eq 'No text specified'
+      it 'throws NoTextError ' do
+        expect { subject.notify }.to raise_error '500: No text specified'
+      end
+    end
+
+    context 'notification returns new error' do
+      let(:response) { double :http_internal_server_error, { code: '302', body: 'another error' }}
+
+      it 'throws default error ' do
+        expect { subject.notify }.to raise_error "Please update slack_notifier in /lib with this error: 302: another error"
       end
     end
   end

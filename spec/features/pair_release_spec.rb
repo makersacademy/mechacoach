@@ -3,19 +3,19 @@ feature 'Pair release slack notification' do
   before { allow_any_instance_of(SlackNotifier).to receive(:notify) }
 
   context 'for one cohort "test2016"' do
-    let(:assignments_source) do 
+    let(:assignments_source) do
       [
         [['jon', 'andrew'], ['bob', 'phil']],
         [['jon', 'phil'], ['bob', 'andrew']],
         [['jon', 'bob'], ['andrew', 'phil']]
-      ] 
+      ]
     end
 
     let(:params) { { cohort: 'test2016', release_time: Time.now } }
 
     before do
       PairAssignments.repo.set("test2016_pairs", assignments_source.to_json)
-      PairAssignments.repo.set("test2016_index", nil)
+      PairAssignments.repo.set("test2016_index", 0)
     end
 
     scenario 'request to "/pairs/release" releases a pair assignment to slack' do
@@ -40,15 +40,15 @@ feature 'Pair release slack notification' do
   end
 
   context 'for another cohort "test2017"' do
-    let(:assignments_source) do 
-      [ [['sarah', 'suleiman'], ['xeno', 'ermintrude']] ] 
+    let(:assignments_source) do
+      [ [['sarah', 'suleiman'], ['xeno', 'ermintrude']] ]
     end
 
     let(:params) { { cohort: 'test2017', release_time: Time.now } }
 
     before do
       PairAssignments.repo.set("test2017_pairs", assignments_source.to_json)
-      PairAssignments.repo.set("test2017_index", nil)
+      PairAssignments.repo.set("test2017_index", 0)
     end
 
     scenario 'requests to "/pairs/release" releases a pair assignment to slack' do

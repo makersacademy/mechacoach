@@ -21,7 +21,7 @@ class ReleasePairs
 
   def message(assignments)
     pairs = assignments.next.map{|a| a.join(", ")}.join("\n")
-    "<!channel> your pair assignments for tomorrow:\n\n#{pairs}"
+    "<!channel> assignments for your next pairing session:\n\n#{pairs}"
   end
 
   def cohort_channel

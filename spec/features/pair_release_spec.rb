@@ -19,7 +19,7 @@ feature 'Pair release slack notification' do
     end
 
     scenario 'request to "/pairs/release" releases a pair assignment to slack' do
-      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> your pair assignments for tomorrow:\n\njon, andrew\nbob, phil")
+      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> assignments for your next pairing session:\n\njon, andrew\nbob, phil")
       response = post('/pairs/release', params)
       expect(response.status).to eq 200
     end
@@ -27,14 +27,14 @@ feature 'Pair release slack notification' do
     scenario 'second request to "/pairs/release" releases subsequent pair assignment in the sequence' do
       post('/pairs/release', params)
 
-      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> your pair assignments for tomorrow:\n\njon, phil\nbob, andrew")
+      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> assignments for your next pairing session:\n\njon, phil\nbob, andrew")
       post('/pairs/release', params)
     end
 
     scenario 'pair release cycles when pairs have run out' do
       assignments_source.count.times { post('/pairs/release', params) }
 
-      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> your pair assignments for tomorrow:\n\njon, andrew\nbob, phil")
+      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> assignments for your next pairing session:\n\njon, andrew\nbob, phil")
       response = post('/pairs/release', params)
     end
   end
@@ -52,7 +52,7 @@ feature 'Pair release slack notification' do
     end
 
     scenario 'requests to "/pairs/release" releases a pair assignment to slack' do
-      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> your pair assignments for tomorrow:\n\nsarah, suleiman\nxeno, ermintrude")
+      expect_any_instance_of(SlackNotifier).to receive(:notify).with("<!channel> assignments for your next pairing session:\n\nsarah, suleiman\nxeno, ermintrude")
       response = post('/pairs/release', params)
       expect(response.status).to eq 200
     end

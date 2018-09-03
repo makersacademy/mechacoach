@@ -29,10 +29,11 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/pairs' do
+    team   = params[:team]
     cohort = params[:cohort]
 
-    unless FindChannel.with(cohort)
-      flash[:error] = "'##{cohort}' is not a student slack channel. Check the cohort name and try again."
+    unless FindChannel.with(team, cohort)
+      flash[:error] = "Check the team and cohort names and try again."
       redirect '/pairs/load'
     end
 

@@ -5,7 +5,7 @@ describe FindChannel do
     context 'channel exists in Slack' do
       it 'returns true' do
         VCR.use_cassette('existing_channel') do
-          expect(described_class.with(existing_channel)).to be true
+          expect(described_class.with(existing_team, existing_channel)).to be true
         end
       end
     end
@@ -13,7 +13,23 @@ describe FindChannel do
     context 'channel does not exist in Slack' do
       it 'returns false' do
         VCR.use_cassette('not_existing_channel') do
-          expect(described_class.with(non_existent_channel)).to be false
+          expect(described_class.with(existing_team, non_existent_channel)).to be false
+        end
+      end
+    end
+
+    context 'Slack team does not exist' do
+      it 'returns false' do
+        VCR.use_cassette('not_existing_team') do
+          expect(described_class.with(non_existent_team, existing_channel)).to be false
+        end
+      end
+    end
+
+    context 'Slack team nor channel exists' do
+      it 'returns false' do
+        VCR.use_cassette('not_existing_team_or_channel') do
+          expect(described_class.with(non_existent_team, non_existent_channel)).to be false
         end
       end
     end
@@ -25,7 +41,15 @@ describe FindChannel do
     'testing'
   end
 
+  def existing_team
+    'makersstudents'
+  end
+
   def non_existent_channel
     'october 2015'
+  end
+
+  def non_existent_team
+    'splufdoofthethird'
   end
 end

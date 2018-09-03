@@ -4,6 +4,13 @@
 <%= styled_flash %>
 
 <form action="/pairs" method="post", enctype="multipart/form-data">
+  <label for="team">
+    Please select the slack group – Apprenticeships or Academy
+    <select name="team">
+      <option default value="makersstudents">makersstudents</option>
+      <option value="makersapprenticeships">makersapprenticeships</option>
+    </select>
+  </label>
   <label for="cohort">
     Use the precise form of the cohort channel name from Slack, without the prepended #. e.g. october2015
     <input type="text" name="cohort" placeholder="e.g. october2015">

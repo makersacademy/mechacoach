@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://hooks.slack.com/services/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
+    body:
+      encoding: US-ASCII
+      string: payload=%7B%22channel%22%3A%22%23aug2018%22%2C%22username%22%3A%22mechacoach%22%2C%22icon_emoji%22%3A%22%3Atophat%3A%22%2C%22text%22%3A%22%22%7D
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 500
+      message: Server Error
+    headers:
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Mon, 03 Sep 2018 10:17:33 GMT
+      Server:
+      - Apache
+      X-Slack-Exp:
+      - '1'
+      X-Slack-Backend:
+      - h
+      X-Slack-Router:
+      - p
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Frame-Options:
+      - SAMEORIGIN
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Via:
+      - haproxy-www-zs1s
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 506b6b30f5cd5452c30be7e4d7a0da24.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - Jpmx1esG2WClCKz3hjAo4d7cm4jOEMKxbiOUot0dLQ-USuCZ2mqEuQ==
+    body:
+      encoding: UTF-8
+      string: no_text
+    http_version: 
+  recorded_at: Mon, 03 Sep 2018 10:17:34 GMT
+recorded_with: VCR 2.9.3

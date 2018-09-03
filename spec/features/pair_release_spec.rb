@@ -11,7 +11,7 @@ feature 'Pair release slack notification' do
       ]
     end
 
-    let(:params) { { cohort: 'test2016', release_time: Time.now } }
+    let(:params) { { team: 'makersstudents', cohort: 'test2016', release_time: Time.now } }
 
     before do
       PairAssignments.repo.set("test2016_pairs", assignments_source.to_json)
@@ -44,7 +44,7 @@ feature 'Pair release slack notification' do
       [ [['sarah', 'suleiman'], ['xeno', 'ermintrude']] ]
     end
 
-    let(:params) { { cohort: 'test2017', release_time: Time.now } }
+    let(:params) { { team: 'makersstudents', cohort: 'test2017', release_time: Time.now } }
 
     before do
       PairAssignments.repo.set("test2017_pairs", assignments_source.to_json)

@@ -1,5 +1,5 @@
 describe ReleasePairs do
-  subject(:service) { ReleasePairs.new(cohort: :test2017) }
+  subject(:service) { ReleasePairs.new(team: 'makersstudents', cohort: :test2017) }
 
   let(:notifier) { double(:notifier, notify: nil) }
 
@@ -19,12 +19,12 @@ describe ReleasePairs do
 
   describe '::with' do
     it 'passes cohort to a new instance' do
-      expect(ReleasePairs).to receive(:new).with(cohort: :test2017).and_call_original
-      ReleasePairs.with(cohort: :test2017)
+      expect(ReleasePairs).to receive(:new).with(team: 'makersstudents', cohort: :test2017).and_call_original
+      ReleasePairs.with(team: 'makersstudents', cohort: :test2017)
     end
     it 'runs an instance' do
       expect_any_instance_of(ReleasePairs).to receive(:run)
-      ReleasePairs.with(cohort: :test2017)
+      ReleasePairs.with(team: 'makersstudents', cohort: :test2017)
     end
   end
 
@@ -36,13 +36,27 @@ describe ReleasePairs do
   it 'notifies the student slack channel of the next pair' do
     allow_any_instance_of(PairAssignments).to receive(:next).and_return([['bob', 'sarah']])
     expect(SlackNotifier).to receive(:new) do |args|
-      expect(args[:channel]).to eq '#test2017'
       expect(args[:team]).to eq 'makersstudents'
+      expect(args[:channel]).to eq '#test2017'
       notifier
     end
     expect(notifier).to receive(:notify) do |message|
       expect(message).to include 'bob, sarah'
     end
     service.run
+  end
+
+  it 'defaults to posting to the makersstudents slack' do
+    allow_any_instance_of(PairAssignments).to receive(:next).and_return([['bob', 'sarah']])
+    expect(SlackNotifier).to receive(:new) do |args|
+      expect(args[:team]).to eq 'makersstudents'
+      expect(args[:channel]).to eq '#test2017'
+      notifier
+    end
+    expect(notifier).to receive(:notify) do |message|
+      expect(message).to include 'bob, sarah'
+    end
+
+    ReleasePairs.with(cohort: :test2017)
   end
 end

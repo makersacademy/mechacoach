@@ -1,23 +1,26 @@
 class ReleasePairs
-  def self.with(cohort:)
-    service = ReleasePairs.new(cohort: cohort)
+  DEFAULT_TEAM = 'makersstudents'
+
+  def self.with(team:, cohort:)
+    p "team from .with #{team}"
+    service = new(team: team || DEFAULT_TEAM, cohort: cohort)
     service.run
   end
 
-  attr_reader :cohort
+  attr_reader :team, :cohort
 
-  def initialize(cohort:)
+  def initialize(team:, cohort:)
+    p "team from .new #{team}"
+    @team = team
     @cohort = cohort
   end
 
   def run
     assignments = PairAssignments.find(cohort)
-    SlackNotifier.new(channel: cohort_channel, team: TEAM).notify(message(assignments))
+    SlackNotifier.new(team: team, channel: cohort_channel).notify(message(assignments))
   end
 
   private
-
-  TEAM = 'makersstudents'
 
   def message(assignments)
     pairs = assignments.next.map{|a| a.join(", ")}.join("\n")

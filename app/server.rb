@@ -21,7 +21,6 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/pairs/release' do
-    p "params from release: #{params}"
     ReleasePairs.with(team: params[:team], cohort: params[:cohort])
   end
 

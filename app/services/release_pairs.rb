@@ -2,7 +2,6 @@ class ReleasePairs
   DEFAULT_TEAM = 'makersstudents'
 
   def self.with(team:, cohort:)
-    p "team from .with #{team}"
     service = new(team: team || DEFAULT_TEAM, cohort: cohort)
     service.run
   end
@@ -10,7 +9,6 @@ class ReleasePairs
   attr_reader :team, :cohort
 
   def initialize(team:, cohort:)
-    p "team from .new #{team}"
     @team = team
     @cohort = cohort
   end

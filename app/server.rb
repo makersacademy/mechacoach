@@ -32,6 +32,11 @@ class MechacoachServer < Sinatra::Base
     team   = params[:team]
     cohort = params[:cohort]
 
+    p "Team:"
+    p team
+    p "Cohort:"
+    p cohort
+
     unless FindChannel.with(team, cohort)
       flash[:error] = "Check the team and cohort names and try again."
       redirect '/pairs/load'

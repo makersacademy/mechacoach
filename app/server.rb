@@ -29,22 +29,21 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/pairs' do
-    team   = params[:team]
+    team = params[:team]
     cohort = params[:cohort]
+    pairs = params[:pairs][:tempfile]
 
-    p "Team:"
-    p team
-    p "Cohort:"
-    p cohort
-
-    unless FindChannel.with(team, cohort)
-      flash[:error] = "Check the team and cohort names and try again."
-      redirect '/pairs/load'
+    case FindChannel.with(team, cohort)
+    when :ok
+      LoadPairs.with(cohort: cohort, file: pairs)
+      flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
+    when :wrong_team
+      flash[:error] = "The Slack team '#{team}' doesn't appear to exist. Please try again."
+    when :wrong_channel
+      flash[:error] = "The Slack channel '#{cohort}' doesn't appear to exist. Please try again."
     end
 
-    LoadPairs.with(cohort: cohort, file: params[:pairs][:tempfile])
-
-    flash[:success] = "Your pairs (#{cohort}) were loaded successfully."
+    redirect '/pairs/load'
   end
 
   post '/new-slack-overflow-issue' do

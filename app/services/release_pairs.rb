@@ -1,8 +1,8 @@
 class ReleasePairs
   DEFAULT_TEAM = 'makersstudents'
 
-  def self.with(team:, cohort:)
-    service = new(team: team || DEFAULT_TEAM, cohort: cohort)
+  def self.with(team: DEFAULT_TEAM, cohort:)
+    service = new(team: team, cohort: cohort)
     service.run
   end
 

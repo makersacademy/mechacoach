@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Mechacoach</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
   <main>
@@ -13,19 +13,19 @@
 
     <form action="/pairs" method="post", enctype="multipart/form-data">
       <label for="team">
-        Please select the slack group – Apprenticeships or Academy
+        <span>Team</span>
         <select name="team">
           <option default value="makersstudents">makersstudents</option>
           <option value="makersapprenticeships">makersapprenticeships</option>
         </select>
       </label>
       <label for="cohort">
-        Use the precise form of the cohort channel name from Slack, without the prepended #. e.g. october2015
-        <input type="text" name="cohort" placeholder="e.g. october2015">
+        <span>Channel</span>
+        <input type="text" name="cohort" placeholder="e.g. october2015" required>
       </label>
       <label for="pairs">
-        Pairs file (.txt)
-        <input type="file" name="pairs">
+        <span>.pairs file</span>
+        <input type="file" name="pairs" required>
       </label>
       <input type="submit" value="Submit">
     </form>

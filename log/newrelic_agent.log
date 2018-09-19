@@ -1,0 +1,29 @@
+# Logfile created on 2018-09-19 18:21:20 +0100 by logger.rb/47272
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Starting the New Relic agent in "development" environment.
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Reading configuration from config/newrelic.yml (/Users/sam/Documents/Code/mechacoach)
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Environment: development
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : No known dispatcher detected.
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Application: Mechacoach (Development)
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Installing Sinatra instrumentation
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Installing Net instrumentation
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Installing deferred Rack::Builder instrumentation
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Installing Rack::Builder middleware instrumentation
+[2018-09-19 18:21:20 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Finished instrumentation
+[2018-09-19 18:21:21 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Doing deferred dependency-detection before Rack startup
+[2018-09-19 18:21:21 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Installing Redis Instrumentation
+[2018-09-19 18:21:22 +0100 Sams-MacBook-Pro-2.local (67478)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1221766/applications/30572866
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Starting the New Relic agent in "development" environment.
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Reading configuration from config/newrelic.yml (/Users/sam/Documents/Code/mechacoach)
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Environment: development
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : No known dispatcher detected.
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Application: Mechacoach (Development)
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Installing Sinatra instrumentation
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Installing Net instrumentation
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Installing deferred Rack::Builder instrumentation
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Installing Rack::Builder middleware instrumentation
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Finished instrumentation
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Doing deferred dependency-detection before Rack startup
+[2018-09-19 18:24:09 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Installing Redis Instrumentation
+[2018-09-19 18:24:11 +0100 Sams-MacBook-Pro-2.local (67568)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1221766/applications/30572866

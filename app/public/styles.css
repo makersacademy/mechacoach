@@ -62,20 +62,34 @@ main {
 
 h1 {
   text-transform: uppercase;
-  font-size: 124px;
-  text-indent: -60%;
+  font-size: 64px;
   font-weight: 900;
   line-height: 0.9;
-  color: #222;
+  color: #eee;
+  opacity: 0.1;
+
+  animation: circus 4s infinite alternate ease-in-out, fade 3s infinite alternate ease-in-out;
+}
+
+@-webkit-keyframes fade {
+  from { opacity: 0.1; }
+  to   { opacity: 0.2; }
+}
+
+@-webkit-keyframes circus {
+  from { color: #00f; }
+  to   { color: #f00; }
 }
 
 h2 {
   text-transform: uppercase;
-  font-size: 24px;
-  text-indent: 40%;
-  font-weight: 900;
+  font-weight: 600;
+  font-size: 18px;
   white-space: pre;
   margin-bottom: 2rem;
+  color: #cfcfcf;
+  text-align: right;
+  opacity: 0.7
 }
 
 label {

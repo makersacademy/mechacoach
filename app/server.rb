@@ -10,7 +10,6 @@ require './app/models/pair_assignments'
 require './app/models/review_summary'
 require './app/services/release_pairs'
 require './app/services/load_pairs'
-require './app/services/submit_challenge_review'
 
 class MechacoachServer < Sinatra::Base
   enable :sessions
@@ -41,6 +40,8 @@ class MechacoachServer < Sinatra::Base
       flash[:error] = "The Slack team '#{team}' doesn't appear to exist. Please try again."
     when :wrong_channel
       flash[:error] = "The Slack channel '#{cohort}' doesn't appear to exist. Please try again."
+    when :server_error
+      flash[:error] = "Something went wrong on the server. Please let Engineering know about this."
     end
 
     redirect '/pairs/load'
@@ -52,19 +53,5 @@ class MechacoachServer < Sinatra::Base
     handler = Mechacoach.new
     handler.slack_overflow_issue(issue_number)
     200
-  end
-
-  #  /challenges/bowling_challenge/reviews/tansaku
-  post '/challenges/:name/reviews/:github_user' do
-    p "Received Challenge Review for #{params[:github_user]}"
-    content = MechacoachServer.sanitize_zap_content(params[:content])
-    p "Zap content sanitised"
-    SubmitChallengeReview.with(content: content, name: params[:name], github_user: params[:github_user])
-    p "Challenge Review submitted"
-    200
-  end
-
-  def self.sanitize_zap_content(content)
-    Hash[content.split(/,\s(?=\w+\:)/).map{|s| s.split(': ',2)}]
   end
 end

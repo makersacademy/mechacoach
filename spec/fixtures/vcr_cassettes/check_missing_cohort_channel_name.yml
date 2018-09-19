@@ -27,11 +27,15 @@ http_interactions:
       Connection:
       - keep-alive
       Date:
-      - Wed, 11 Apr 2018 13:14:21 GMT
+      - Wed, 19 Sep 2018 17:13:22 GMT
       Server:
       - Apache
+      X-Slack-Exp:
+      - '1'
       X-Slack-Backend:
       - h
+      X-Slack-Router:
+      - p
       Referrer-Policy:
       - no-referrer
       Strict-Transport-Security:
@@ -41,16 +45,16 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Via:
-      - haproxy-www-i8ac
+      - haproxy-www-928b
       X-Cache:
       - Error from cloudfront
       Via:
-      - 1.1 0f5204fd322d4632134ce901aa024a61.cloudfront.net (CloudFront)
+      - 1.1 c722429a8af7d9f02db581c7256a2bef.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - O-UfrbqUJrwFaVl47_HHWlzpyD1QJKY4U7KCP8Jx5zIUz4idaxlTwg==
+      - 9hhOB1VjpH0c0rW3Xl-Tv9atFanIUC9szvEeBPb5z1vQGBcX2HNq5A==
     body:
       encoding: UTF-8
       string: channel_not_found
     http_version: 
-  recorded_at: Wed, 11 Apr 2018 13:14:21 GMT
+  recorded_at: Wed, 19 Sep 2018 17:13:22 GMT
 recorded_with: VCR 2.9.3

@@ -53,10 +53,10 @@ describe SlackNotifier do
     end
 
     context 'poorly-formed notification (message empty)' do
-      let(:response) { double :http_internal_server_error, { code: '500', body: 'No text specified' }}
+      let(:response) { double :http_internal_server_error, { code: '400', body: 'No text specified' }}
 
       it 'throws NoTextError ' do
-        expect { subject.notify }.to raise_error '500: No text specified'
+        expect { subject.notify }.to raise_error '400: No text specified'
       end
     end
 

@@ -17,8 +17,8 @@ http_interactions:
       - application/x-www-form-urlencoded
   response:
     status:
-      code: 500
-      message: Server Error
+      code: 400
+      message: Bad Request
     headers:
       Content-Type:
       - text/html
@@ -27,11 +27,15 @@ http_interactions:
       Connection:
       - keep-alive
       Date:
-      - Wed, 11 Apr 2018 13:08:33 GMT
+      - Wed, 19 Sep 2018 17:13:23 GMT
       Server:
       - Apache
+      X-Slack-Exp:
+      - '1'
       X-Slack-Backend:
       - h
+      X-Slack-Router:
+      - p
       Referrer-Policy:
       - no-referrer
       Strict-Transport-Security:
@@ -41,16 +45,16 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Via:
-      - haproxy-www-rju6
+      - haproxy-www-jn0s
       X-Cache:
       - Error from cloudfront
       Via:
-      - 1.1 a59248a3f35122c2ec3af07e422e20d5.cloudfront.net (CloudFront)
+      - 1.1 8e55f0de4d538f549650ba46e729188c.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - G8zQLaZxt-PVPCigMhHy_HNK_g8PRzTbnJh6X7FzaNQQAZCbJ-srkw==
+      - qRv7dM78PeyiQpKg414MDA4qHe1FOPGoU73aQi6qNL9WGdk-dByEIg==
     body:
       encoding: UTF-8
       string: missing_text_or_fallback_or_attachments
     http_version: 
-  recorded_at: Wed, 11 Apr 2018 13:08:34 GMT
+  recorded_at: Wed, 19 Sep 2018 17:13:23 GMT
 recorded_with: VCR 2.9.3

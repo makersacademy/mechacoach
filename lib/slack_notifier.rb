@@ -7,8 +7,8 @@ class SlackNotifier
 
   DEFAULT_USERNAME = 'mechacoach'
   ERRORS = {
-    '404' => SlackNotifications::ChannelNotFoundError,
-    '500' => SlackNotifications::NoTextError
+    '400' => SlackNotifications::NoTextError,
+    '404' => SlackNotifications::ChannelNotFoundError
   }
 
   attr_reader :client, :channel, :username

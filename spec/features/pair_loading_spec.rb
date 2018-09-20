@@ -31,7 +31,6 @@ describe 'loading pairs via GUI' do
         fill_in('cohort', with: 'october2015')
         attach_file('pairs', File.absolute_path('spec/fixtures/good_pairs.txt'))
         click_button 'Submit'
-        p page.body
         expect(page).to have_content 'Your pairs (october2015) were loaded successfully.'
         expect(PairAssignments.find('october2015')).to be
       end

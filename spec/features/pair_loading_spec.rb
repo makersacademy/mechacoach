@@ -1,12 +1,12 @@
 describe 'loading pairs via GUI' do
   it 'prompts the user to use the slack channel name' do
     visit '/pairs/load'
-    expect(page).to have_content 'Use the precise form of the cohort channel name from Slack, without the prepended #. e.g. october2015'
+    expect(page).to have_content 'Load pairs into the pair poster'
   end
 
   it 'prompts the user to select a slack user group' do
     visit '/pairs/load'
-    expect(page).to have_content 'Please select the slack group – Apprenticeships or Academy'
+    expect(page).to have_content 'Team makersstudents makersapprenticeships'
   end
 
   context 'with a non-existent cohort name' do

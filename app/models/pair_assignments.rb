@@ -7,6 +7,7 @@ class PairAssignments
     def find(cohort)
       data = repo.get(pairs_key(cohort))
       return nil unless data
+
       PairAssignments.new(cohort, JSON.parse(data))
     end
 

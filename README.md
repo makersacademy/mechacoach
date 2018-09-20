@@ -18,12 +18,24 @@ If it's anything else, keep reading.
 
 ## Setting up Slack
 
+**Important:** We're currently using a **legacy** slack integration - which they still support for now.
+https://api.slack.com/custom-integrations/incoming-webhooks
+
+Currently the Apprenticeships legacy integration configuration is here: https://makersapprenticeships.slack.com/services/BD4KBU4AG
+
+To test the Apprenticeships slack team webhook:
+
+```bash
+curl -X POST -H 'Content-type: application/json' --data '{"channel":"#testing", "text":"mwahahahahahahaha :blue_heart:", "icon_emoji":":ghost:", "username":"edbot"}' [SLACK WEBHOOK -> check lastpass]
+```
+
+#### New Webhooks
 Mechacoach requires an integrated webhook to be set up in Slack, at the following address:
 
 ```
 https://[your-team].slack.com/apps
 => Browse Apps
-=> Custom Integrations
+=> Custom Integrations # legacy, they encourage using slack apps. Slack app webhooks unfortunately seem to have no channel override functionality...
 => Incoming WebHooks
 ```
 

@@ -14,11 +14,17 @@ $ gem install makers_toolbelt
 $ makers generate_pairs [file] # [file] being the .txt file you made in step 1
 ```
 
-3. Upload the pair assignments to Mechacoach.  Go to http://mechacoach.herokuapp.com/pairs/load and enter the cohort name **(must match the cohort Slack channel name)** and the pair assignments file (made in step 2) to upload.
+3. Upload the pair assignments to Mechacoach.  Go to http://mechacoach.herokuapp.com/pairs/load
+    1. enter the cohort name **(must match the cohort Slack channel name)** 
+    2. select the Slack team
+    3. upload the pair assignments file (made in step 2). (You should see confirmation or a hopefully helpful error message)
 
-4. Create a notification schedule in the [pair assignment Google Calendar](https://www.google.com/calendar/embed?src=makersacademy.com_evddbhj972183cdquke82v10o0%40group.calendar.google.com&ctz=Europe/London).  Use a recurring event(s) to generate the schedule (you can delete exceptions for bank holidays etc.).  The event summary must be the exact cohort Slack channel name.
+4. Create a notification schedule in the [pair assignment Google Calendar](https://www.google.com/calendar/embed?src=makersacademy.com_evddbhj972183cdquke82v10o0%40group.calendar.google.com&ctz=Europe/London).  Use a recurring event(s) to generate the schedule (you can delete exceptions for bank holidays etc.).  
+    - **IMPORTANT**
+      - The event summary must be the exact cohort Slack channel name.
+      - The event description must be the exact Slack team name.
 
-Zapier tracks the Google Calendar.  Fifteen minutes before each calendar event, Zapier makes a POST request to `/pairs/release`.  This posts the next pair assignments in the sequence to the cohort Slack channel.
+Zapier looks at the Google Calendar every 5mins.  Roughly fifteen minutes before each calendar event, Zapier makes a POST request to `/pairs/release` with parameters taken from the event summary & description. This posts the next pair assignments in the sequence to the cohort Slack channel.
 
 Once all of the pair assignments have been exhausted, Mechacoach will cycle back to the first.
 
@@ -27,7 +33,7 @@ Once all of the pair assignments have been exhausted, Mechacoach will cycle back
 If for some reason you want to trigger a new, unscheduled pair assignment to post to slack, you can use the curl from the command line as follows (substitute cohort-slack-channel with the exact students slack channel):
 
 ```
-curl -X POST -F 'cohort=cohort-slack-channel' http://mechacoach.herokuapp.com/pairs/release
+curl -X POST -F 'cohort=cohort-slack-channel' -F 'team=slack-team' http://mechacoach.herokuapp.com/pairs/release
 ```
 
 ### Manually changing the pairs

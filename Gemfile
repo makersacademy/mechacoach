@@ -13,11 +13,8 @@ gem 'sinatra'
 gem 'sinatra-flash'
 gem 'capybara'
 gem 'capybara-json'
-
 gem 'redis'
-
 gem 'google_drive'
-
 gem 'newrelic_rpm'
 
 group :test do

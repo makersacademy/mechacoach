@@ -49,9 +49,8 @@ class MechacoachServer < Sinatra::Base
 
   post '/slack/cohort' do
     body = JSON.parse(request.body.read)
-    p body
 
-    SlackNotifier.new(team: 'makersstudents', channel: 'testing').notify(body['text'])
+    SlackNotifier.new(team: 'makersstudents', channel: 'testing').notify("<!channel>\n\nchannel: <##{body['event']['channel']}>\n#{body['event']['text']}")
     200
   end
 

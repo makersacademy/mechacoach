@@ -11,6 +11,8 @@ require './app/models/review_summary'
 require './app/services/release_pairs'
 require './app/services/load_pairs'
 
+require 'pry'
+
 class MechacoachServer < Sinatra::Base
   enable :sessions
   register Sinatra::Flash
@@ -45,6 +47,11 @@ class MechacoachServer < Sinatra::Base
     end
 
     redirect '/pairs/load'
+  end
+
+  post '/slack/cohort' do
+    content_type :json
+    { challenge: params['challenge'] }.to_json
   end
 
   post '/new-slack-overflow-issue' do

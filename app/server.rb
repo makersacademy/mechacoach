@@ -11,8 +11,6 @@ require './app/models/review_summary'
 require './app/services/release_pairs'
 require './app/services/load_pairs'
 
-require 'pry'
-
 class MechacoachServer < Sinatra::Base
   enable :sessions
   register Sinatra::Flash

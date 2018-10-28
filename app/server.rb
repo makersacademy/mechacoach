@@ -49,9 +49,10 @@ class MechacoachServer < Sinatra::Base
 
   post '/slack/cohort' do
     body = JSON.parse(request.body.read)
-    
-    content_type :json
-    { challenge: body["challenge"]}.to_json
+    p body
+
+    SlackNotifier.new(team: 'makersstudents', channel: 'testing').notify(body['text'])
+    200
   end
 
   post '/new-slack-overflow-issue' do

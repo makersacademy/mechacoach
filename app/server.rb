@@ -48,11 +48,10 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/slack/cohort' do
-    puts 'params:'
-    p params
-    puts ''
+    body = JSON.parse(request.body.read)
+    
     content_type :json
-    { challenge: params['challenge'] }.to_json
+    { challenge: body["challenge"]}.to_json
   end
 
   post '/new-slack-overflow-issue' do

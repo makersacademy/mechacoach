@@ -48,6 +48,9 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/slack/cohort' do
+    puts 'params:'
+    p params
+    puts ''
     content_type :json
     { challenge: params['challenge'] }.to_json
   end

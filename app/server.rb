@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'newrelic_rpm'
+require 'pry'
 
 require './lib/parse_github'
 require './lib/mechacoach'
@@ -10,6 +11,7 @@ require './app/models/pair_assignments'
 require './app/models/review_summary'
 require './app/services/release_pairs'
 require './app/services/load_pairs'
+require './app/services/mechacoach_bot'
 
 class MechacoachServer < Sinatra::Base
   enable :sessions
@@ -50,8 +52,7 @@ class MechacoachServer < Sinatra::Base
   post '/slack/cohort' do
     body = JSON.parse(request.body.read)
 
-    SlackNotifier.new(team: 'makersstudents', channel: 'testing').notify("<!channel>\n\nchannel: <##{body['event']['channel']}>\n#{body['event']['text']}")
-    200
+    MechacoachBot.process(team_id: body['team_id'], event: body['event'])
   end
 
   post '/new-slack-overflow-issue' do

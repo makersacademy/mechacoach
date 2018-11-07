@@ -18,9 +18,8 @@ class BotMention
   def message
     [
       "<!channel>",
-      "flagged at: #{time}",
-      "channel: <##{event['channel']}>",
-      "message: #{event['text']}",
+      "At #{time} in <##{event['channel']}>, <@#{event['user']}> said: ",
+      "#{event['text']}",
     ].join("\n")
   end
 

@@ -32,6 +32,10 @@ Once all of the pair assignments have been exhausted, Mechacoach will cycle back
 
 If for some reason you want to trigger a new, unscheduled pair assignment to post to slack, you can use the curl from the command line as follows (substitute cohort-slack-channel with the exact students slack channel):
 
+For the academy, the slack-team should be replaced with makersstudents. For example: 'team=makersstudents' 
+
+For the apprenticeships it would be 'team=makersapprenticeships' 
+
 ```
 curl -X POST -F 'cohort=cohort-slack-channel' -F 'team=slack-team' http://mechacoach.herokuapp.com/pairs/release
 ```

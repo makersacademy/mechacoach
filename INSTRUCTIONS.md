@@ -34,7 +34,7 @@ If for some reason you want to trigger a new, unscheduled pair assignment to pos
 
 For the academy, the slack-team should be replaced with makersstudents. For example: 'team=makersstudents' 
 
-For the apprenticeships it would be 'team=makersapprenticeships' 
+For apprenticeships it would be 'team=makersapprenticeships' 
 
 ```
 curl -X POST -F 'cohort=cohort-slack-channel' -F 'team=slack-team' http://mechacoach.herokuapp.com/pairs/release

@@ -39,6 +39,12 @@ If for some reason you want to trigger a new, unscheduled pair assignment to pos
 curl -X POST -F 'cohort=<cohort-slack-channel>' -F 'team=<slack-team>' http://mechacoach.herokuapp.com/pairs/release
 ```
 
+Example:
+
+```
+curl -X POST -F 'cohort=july2019' -F 'team=makersstudents' http://mechacoach.herokuapp.com/pairs/release
+```
+
 ### Manually changing the pairs
 
 If you want to change the pairs – for instance, if a student has asked not to work with another student – you will need to connect to Mechacoach's Redis data store via the command-line, copy the existing data, change it, and then re-submit it to Mechacoach via the [pair loader](http://mechacoach.herokuapp.com/pairs/load). Here are the instructions:

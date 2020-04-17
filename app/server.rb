@@ -64,8 +64,7 @@ class MechacoachServer < Sinatra::Base
   end
 
   post '/look-up' do
-    payload = JSON.parse(request.body.read)
-    searchResult = Search.new(search_term: payload["text"]).run
+    searchResult = Search.new(search_term: params["text"]).run
     searchResult.summary
   end
 end

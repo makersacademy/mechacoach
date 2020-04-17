@@ -4,6 +4,7 @@ require 'newrelic_rpm'
 
 require './lib/parse_github'
 require './lib/mechacoach'
+require './lib/search'
 require './lib/find_channel'
 require './lib/parse_pair_file'
 require './app/models/pair_assignments'
@@ -60,5 +61,11 @@ class MechacoachServer < Sinatra::Base
     handler = Mechacoach.new
     handler.slack_overflow_issue(issue_number)
     200
+  end
+
+  post '/look-up' do
+    payload = JSON.parse(request.body.read)
+    searchResult = Search.new(search_term: payload["text"]).run
+    searchResult.summary
   end
 end

@@ -26,7 +26,11 @@ Currently the Apprenticeships legacy integration configuration is here: https://
 To test the Apprenticeships slack team webhook:
 
 ```bash
+<<<<<<< HEAD
 curl -X POST -H 'Content-type: application/json' --data '{"channel":"#testing", "text":"mwahahahahahahaha :blue_heart:", "icon_emoji":":ghost:", "username":"edbot"}' [SLACK WEBHOOK -> check lastpass]
+=======
+curl -X POST -H 'Content-type: application/json' --data '{"channel":"#testing", "text":"mwahahahahahahaha :blue_heart:", "icon_emoji":":ghost:", "username":"edbot"}' https://hooks.slack.com/services/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
+>>>>>>> 2d92d72d586e76553677b9ea25ccbc8f58282b70
 ```
 
 #### New Webhooks

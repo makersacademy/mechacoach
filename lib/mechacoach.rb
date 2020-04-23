@@ -9,7 +9,7 @@ class Mechacoach
 
   def initialize(slack_notifier: SlackNotifier, github_klass: Octokit::Client)
     @slack_notifier = slack_notifier
-    @github_client = SetupGithub.with(github_klass)
+    @github_client = github_klass.new(access_token: ENV["GITHUB_ACCESS_TOKEN_FOR_SO"])
   end
 
   def slack_overflow_issue(issue_number)
@@ -22,7 +22,7 @@ class Mechacoach
 
   def slack_overflow_formatting_info
     <<-eos
-A word to the wise - format overflow questions like this:
+A word to the wise - [format overflow questions](https://stackoverflow.com/help/how-to-ask) like this:
 
 1. What you're trying to do
 2. The code to do it in a [GitHub-flavoured Markdown](https://help.github.com/articles/github-flavored-markdown/) code block

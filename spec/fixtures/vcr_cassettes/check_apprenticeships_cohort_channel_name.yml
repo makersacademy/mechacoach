@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://hooks.slack.com/services/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
+    uri: https://hooks.slack.com/services/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
     body:
       encoding: US-ASCII
       string: payload=%7B%22channel%22%3A%22%23aug2018%22%2C%22username%22%3A%22mechacoach%22%2C%22icon_emoji%22%3A%22%3Atophat%3A%22%2C%22text%22%3A%22%22%7D
@@ -20,41 +20,31 @@ http_interactions:
       code: 400
       message: Bad Request
     headers:
-      Content-Type:
-      - text/html
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
       Date:
-      - Wed, 19 Sep 2018 17:13:22 GMT
+      - Fri, 24 Apr 2020 07:37:18 GMT
       Server:
       - Apache
-      X-Slack-Exp:
-      - '1'
-      X-Slack-Backend:
-      - h
-      X-Slack-Router:
-      - p
-      Referrer-Policy:
-      - no-referrer
+      Vary:
+      - Accept-Encoding
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
+      Referrer-Policy:
+      - no-referrer
+      X-Slack-Backend:
+      - h
       X-Frame-Options:
       - SAMEORIGIN
       Access-Control-Allow-Origin:
       - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html
       X-Via:
-      - haproxy-www-gec8
-      X-Cache:
-      - Error from cloudfront
-      Via:
-      - 1.1 5fe8343a80de49928fae39084e131a25.cloudfront.net (CloudFront)
-      X-Amz-Cf-Id:
-      - yo9InBzWmFd1V3c7XBgeOZr5TYdHMteQ6OjH2d5mUVgj494pUPXDGg==
+      - haproxy-www-4p2v
     body:
       encoding: UTF-8
-      string: no_text
+      string: missing_text_or_fallback_or_attachments
     http_version: 
-  recorded_at: Wed, 19 Sep 2018 17:13:22 GMT
+  recorded_at: Fri, 24 Apr 2020 07:37:18 GMT
 recorded_with: VCR 2.9.3

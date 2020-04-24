@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.7.0'
+ruby '2.5.0'
 
 gem 'rake'
-gem 'rspec'
 # Write new Slack messages following https://github.com/stevenosloan/slack-notifier
 gem 'slack-notifier', "~> 1.3.0"
 # Wrap the GitHub API
@@ -18,6 +17,7 @@ gem 'google_drive'
 gem 'newrelic_rpm'
 
 group :test do
+  gem 'rspec'
   gem 'byebug'
   gem 'webmock'
   gem 'vcr'

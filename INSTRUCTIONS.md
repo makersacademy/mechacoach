@@ -4,7 +4,7 @@
 
 Mechacoach will automatically post pair assignments to student cohort Slack channels.  To set this up for a cohort, follow these steps:
 
-1. Create a .txt file that lists all the people in the cohort.  One full name per line, no quotation marks.  One good source of this information is the GitHub [team](https://github.com/orgs/makersacademy/teams) for your cohort.  Check with onboarding that the list doesn't include any people who have dropped out of the pre course.
+1. Create a .txt file that lists all the people, by their formatted slack IDs (eg: `<@U0AHW79T3>`) , one per line, no quotation marks. Use the [Slack ID view](https://airtable.com/tblaz3KrnKt9qQM8I/viwBk9LJ5OAdJqul8?blocks=hide) on the students table in airtable. Mechacoach uses [slack-notifier](https://github.com/stevenosloan/slack-notifier) to post data to the [slack API](https://api.slack.com/reference/surfaces/formatting#advanced).  Double check with admissions that the list doesn't include any people who have dropped out of the pre course.
 
 2. Generate a list of pair assignments using [Makers Toolbelt.](https://github.com/makersacademy/toolbelt) You can either follow the instructions on the Toolbelt repo [README](https://github.com/makersacademy/toolbelt/blob/master/README.md) or do the following:
 
